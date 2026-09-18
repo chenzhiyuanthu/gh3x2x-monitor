@@ -1,0 +1,13 @@
+# 汇顶客户资料包（保密，不上传）
+GH3x2x/
+# 汇顶 SDK 在固件工程里的副本：闭源库 + 算法参数 + demo 源码（按 firmware/gh3x2x_xiao/GOODIX_SDK.md 还原）
+firmware/gh3x2x_xiao/src/goodix/
+firmware/gh3x2x_xiao/lib/
+# 构建产物 / 虚拟环境
+firmware/*/build/
+ios/GHMonitor/build/
+ios/GHMonitor/GHMonitor.xcodeproj/
+tools/.venv/
+__pycache__/
+*.pyc
+.DS_Store

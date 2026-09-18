@@ -1,0 +1,2881 @@
+diff --color -ruN a/demo_algo_code/goodix_algo_application/inc/gh3x2x_demo_algo_config.h b/demo_algo_code/goodix_algo_application/inc/gh3x2x_demo_algo_config.h
+--- a/demo_algo_code/goodix_algo_application/inc/gh3x2x_demo_algo_config.h	2025-06-11 17:39:31
++++ b/demo_algo_code/goodix_algo_application/inc/gh3x2x_demo_algo_config.h	2026-09-18 16:59:14
+@@ -1,148 +1,148 @@
+-/**
+- * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
+- *
+- * @file    gh3x2x_demo_algo_config.h
+- *
+- * @brief   gh3x2x algo config
+- *
+- * @version ref gh3x2x_demo_algo_config.h
+- *
+- */
+-#ifndef _GH3X2X_DEMO_ALGO_CONFIG_H_
+-#define _GH3X2X_DEMO_ALGO_CONFIG_H_
+-
+-#ifdef GOODIX_DEMO_PLATFORM
+-//#include "Goodix_Platform_config.h"
+-#endif
+-
+-#define GH3X2X_ALGO_FUNCTION_GROUP_0 (GH3X2X_FUNCTION_HR|GH3X2X_FUNCTION_SPO2|GH3X2X_FUNCTION_HRV|GH3X2X_FUNCTION_SOFT_ADT_GREEN)
+-#define GH3X2X_ALGO_FUNCTION_GROUP_1 (GH3X2X_FUNCTION_SPO2)
+-#define GH3X2X_ALGO_FUNCTION_GROUP_2 (GH3X2X_FUNCTION_ECG)
+-#define GH3X2X_ALGO_FUNCTION_GROUP_3 (GH3X2X_FUNCTION_HRV)
+-#define GH3X2X_ALGO_FUNCTION_GROUP_4 (GH3X2X_NO_FUNCTION)
+-
+-#define GOODIX_ALGO_BASIC                      (1)
+-#define GOODIX_ALGO_MEDIUM                     (2)
+-#define GOODIX_ALGO_PREMIUM                    (3)
+-#define GOODIX_ALGO_EXCLUSIVE                  (4)
+-
+-#define GOODIX_ECG_ALGO_500FS_QRS_ENABLE       (1)
+-#define GOODIX_ECG_ALGO_500FS_QRS_DISABLE      (2)
+-#define GOODIX_ECG_ALGO_250FS_QRS_ENABLE       (3)
+-#define GOODIX_ECG_ALGO_250FS_QRS_DISABLE      (4)
+-
+-#ifndef __GOODIX_HR_ALGO_VERISON__
+-#define __GOODIX_HR_ALGO_VERISON__             (GOODIX_ALGO_EXCLUSIVE)
+-#endif 
+-#ifndef __GOODIX_SPO2_ALGO_VERISON__
+-#define __GOODIX_SPO2_ALGO_VERISON__           (GOODIX_ALGO_EXCLUSIVE)
+-#endif 
+-#ifndef __GOODIX_ECG_ALGO_CONFIG__
+-#define __GOODIX_ECG_ALGO_CONFIG__             (GOODIX_ECG_ALGO_250FS_QRS_ENABLE)
+-#endif 
+-
+-#if ((__GOODIX_HR_ALGO_VERISON__ == GOODIX_ALGO_BASIC) || (__GOODIX_HR_ALGO_VERISON__ == GOODIX_ALGO_MEDIUM))
+-#if ((__GOODIX_SPO2_ALGO_VERISON__ == GOODIX_ALGO_PREMIUM) || (__GOODIX_SPO2_ALGO_VERISON__ == GOODIX_ALGO_EXCLUSIVE))
+-#error "HR algo BASIC\MEDIUM version should adapt to SPO2 BASIC\MEDIUM version"
+-#endif
+-#endif
+-
+-#if ((__GOODIX_HR_ALGO_VERISON__ == GOODIX_ALGO_PREMIUM) || (__GOODIX_HR_ALGO_VERISON__ == GOODIX_ALGO_EXCLUSIVE))
+-#if ((__GOODIX_SPO2_ALGO_VERISON__ == GOODIX_ALGO_BASIC) || (__GOODIX_SPO2_ALGO_VERISON__ == GOODIX_ALGO_MEDIUM))
+-#error "HR algo PREMIUM\EXCLUSIVE version should adapt to SPO2 PREMIUM\EXCLUSIVE version"
+-#endif
+-#endif
+-
+-/* 0: global buffer for goodix algorithm mem pool
+- * 1: user dynamic buffer for goodix algorithm mem pool */
+-#define __USER_DYNAMIC_ALGO_MEM_EN__           (0)
+-#if __USER_DYNAMIC_ALGO_MEM_EN__
+-#define GH3X2X_ALGORITHMS_MEMORY_SIZE_USERSET  (0)
+-#endif
+-
+-/* function algo enable config */
+-#define __USE_GOODIX_ADT_ALGORITHM__           (0)
+-#define __USE_GOODIX_HR_ALGORITHM__            (1)
+-#define __USE_GOODIX_HRV_ALGORITHM__           (1)
+-#define __USE_GOODIX_HSM_ALGORITHM__           (0)
+-#define __USE_GOODIX_SPO2_ALGORITHM__          (1)
+-#define __USE_GOODIX_ECG_ALGORITHM__           (1)
+-#define __USE_GOODIX_BT_ALGORITHM__            (0)
+-#define __USE_GOODIX_RESP_ALGORITHM__          (0)
+-#define __USE_GOODIX_AF_ALGORITHM__            (0)
+-#define __USE_GOODIX_BP_ALGORITHM__            (0)
+-#define __USE_GOODIX_SOFT_ADT_ALGORITHM__      (1)
+-
+-/* algorithm log */
+-#define __GH3X2X_ALGO_LOG_LV_0__                (0)    /** no log **/
+-#define __GH3X2X_ALGO_LOG_LV_1__                (1)    /** include EXAMPLE LOG information **/
+-#define __GH3X2X_ALGO_LOG_LV_2__                (2)    /** include EXAMPLE LOG debug **/
+-
+-#define __ALGO_LOG_CONFIG__                    (__GH3X2X_ALGO_LOG_LV_0__)
+-
+-/* BT NTC Drv Convert config*/
+-#if __USE_GOODIX_BT_ALGORITHM__
+-#define __USE_GOODIX_DRV_NTC_Convert                       (1)
+-#endif
+-
+-/* algorithm config max number */
+-#define __GOODIX_ALGO_CFG_LIST_MAX_NUM__       (1)
+-
+-/*algorithm output value process strategy config*/
+-#define __GH3X2X_HR_OUTPUT_VALUE_STRATEGY_EN__ (0)
+-
+-/* algoritm channel nunber config*/
+-#define __HR_ALGORITHM_SUPPORT_CHNL_NUM__      (4)  /* range 1~4 */
+-#define __SPO2_ALGORITHM_SUPPORT_CHNL_NUM__    (1)  /* range 1-4 */
+-
+-/* algo and drv interactivity*/
+-#define __GH_MSG_WTIH_DRV_LAYER_EN__           (0)
+-#define __GH_SEPARATE_ALGO_EN__                (0)
+-
+-#if (__USE_GOODIX_SOFT_ADT_ALGORITHM__)
+-#define __SOFT_ADT_IR_DETECT_TIMEOUT__         (30) /** (recomended value = 30 seconds) ir detect timeout **/
+-#endif
+-
+-#define GH_SEND_MSG_WEAR_EVENT(event)   //add your code to send message to drv layer
+-
+-#define GH_ALGO_ADC_DATA_ONLY                   0
+-#define GH_ALGO_ADC_IPD_DATA                    1
+-#define GH_ALGO_DATA_TYPE                       GH_ALGO_ADC_DATA_ONLY
+-#define GH_ALGO_CHIP_3018                       0
+-#define GH_ALGO_CHIP_3X2X                       1
+-#define GH_ALGO_CHIP_33XX                       2
+-#define GH_ALGO_CHIP_3036                       3
+-#define GH_ALGO_CHIP_TYPE                       GH_ALGO_CHIP_3X2X
+-#define GH_ALGO_DATA_BIT_NUM                    24
+-#define PPG_CHANNEL_NUM                         4
+-#define GH_SPO2_PPG_CHANNEL_NUM                 __SPO2_ALGORITHM_SUPPORT_CHNL_NUM__
+-
+-#define GH_MAX(X, Y)                            (((X) > (Y)) ? (X) : (Y))
+-#define GH_ALGO_PPG_CHL_NUM                     GH_MAX(__HR_ALGORITHM_SUPPORT_CHNL_NUM__, __SPO2_ALGORITHM_SUPPORT_CHNL_NUM__)
+-#define GH_ALGO_BYTE_BITS                       (8)
+-#define GH_ALGO_EN_FLAG_OFFSET                  (7)
+-#define GH_ALGO_EN_FLAG_MAX                     ((GH_ALGO_PPG_CHL_NUM * 3 / GH_ALGO_BYTE_BITS) \
+-                                                + (((GH_ALGO_PPG_CHL_NUM * 3) % GH_ALGO_BYTE_BITS) ? 1 : 0))
+-
+-
+-/***********************************  DO NOT MODIFY FOLLOWING CODE *******************************/
+-#if (\
+-    __USE_GOODIX_HR_ALGORITHM__      ||\
+-    __USE_GOODIX_HRV_ALGORITHM__     ||\
+-    __USE_GOODIX_HSM_ALGORITHM__     ||\
+-    __USE_GOODIX_SPO2_ALGORITHM__    ||\
+-    __USE_GOODIX_ECG_ALGORITHM__     ||\
+-    __USE_GOODIX_BT_ALGORITHM__      ||\
+-    __USE_GOODIX_RESP_ALGORITHM__    ||\
+-    __USE_GOODIX_AF_ALGORITHM__      ||\
+-    __USE_GOODIX_BP_ALGORITHM__      ||\
+-    __USE_GOODIX_SOFT_ADT_ALGORITHM__\
+-    )
+-#define __GOODIX_ALGO_CALL_MODE__           (1)
+-#else
+-#define __GOODIX_ALGO_CALL_MODE__           (0)
+-#endif
+-
+-#endif /* _GH3X2X_DEMO_ALGO_CALL_H_ */
+-
+-/********END OF FILE********* Copyright (c) 2003 - 2022, Goodix Co., Ltd. ********/
++/**
++ * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
++ *
++ * @file    gh3x2x_demo_algo_config.h
++ *
++ * @brief   gh3x2x algo config
++ *
++ * @version ref gh3x2x_demo_algo_config.h
++ *
++ */
++#ifndef _GH3X2X_DEMO_ALGO_CONFIG_H_
++#define _GH3X2X_DEMO_ALGO_CONFIG_H_
++
++#ifdef GOODIX_DEMO_PLATFORM
++//#include "Goodix_Platform_config.h"
++#endif
++
++#define GH3X2X_ALGO_FUNCTION_GROUP_0 (GH3X2X_FUNCTION_HR|GH3X2X_FUNCTION_SPO2|GH3X2X_FUNCTION_HRV|GH3X2X_FUNCTION_SOFT_ADT_GREEN)
++#define GH3X2X_ALGO_FUNCTION_GROUP_1 (GH3X2X_FUNCTION_SPO2)
++#define GH3X2X_ALGO_FUNCTION_GROUP_2 (GH3X2X_FUNCTION_ECG)
++#define GH3X2X_ALGO_FUNCTION_GROUP_3 (GH3X2X_FUNCTION_HRV)
++#define GH3X2X_ALGO_FUNCTION_GROUP_4 (GH3X2X_NO_FUNCTION)
++
++#define GOODIX_ALGO_BASIC                      (1)
++#define GOODIX_ALGO_MEDIUM                     (2)
++#define GOODIX_ALGO_PREMIUM                    (3)
++#define GOODIX_ALGO_EXCLUSIVE                  (4)
++
++#define GOODIX_ECG_ALGO_500FS_QRS_ENABLE       (1)
++#define GOODIX_ECG_ALGO_500FS_QRS_DISABLE      (2)
++#define GOODIX_ECG_ALGO_250FS_QRS_ENABLE       (3)
++#define GOODIX_ECG_ALGO_250FS_QRS_DISABLE      (4)
++
++#ifndef __GOODIX_HR_ALGO_VERISON__
++#define __GOODIX_HR_ALGO_VERISON__             (GOODIX_ALGO_EXCLUSIVE)
++#endif 
++#ifndef __GOODIX_SPO2_ALGO_VERISON__
++#define __GOODIX_SPO2_ALGO_VERISON__           (GOODIX_ALGO_PREMIUM)
++#endif 
++#ifndef __GOODIX_ECG_ALGO_CONFIG__
++#define __GOODIX_ECG_ALGO_CONFIG__             (GOODIX_ECG_ALGO_250FS_QRS_ENABLE)
++#endif 
++
++#if ((__GOODIX_HR_ALGO_VERISON__ == GOODIX_ALGO_BASIC) || (__GOODIX_HR_ALGO_VERISON__ == GOODIX_ALGO_MEDIUM))
++#if ((__GOODIX_SPO2_ALGO_VERISON__ == GOODIX_ALGO_PREMIUM) || (__GOODIX_SPO2_ALGO_VERISON__ == GOODIX_ALGO_EXCLUSIVE))
++#error "HR algo BASIC\MEDIUM version should adapt to SPO2 BASIC\MEDIUM version"
++#endif
++#endif
++
++#if ((__GOODIX_HR_ALGO_VERISON__ == GOODIX_ALGO_PREMIUM) || (__GOODIX_HR_ALGO_VERISON__ == GOODIX_ALGO_EXCLUSIVE))
++#if ((__GOODIX_SPO2_ALGO_VERISON__ == GOODIX_ALGO_BASIC) || (__GOODIX_SPO2_ALGO_VERISON__ == GOODIX_ALGO_MEDIUM))
++#error "HR algo PREMIUM\EXCLUSIVE version should adapt to SPO2 PREMIUM\EXCLUSIVE version"
++#endif
++#endif
++
++/* 0: global buffer for goodix algorithm mem pool
++ * 1: user dynamic buffer for goodix algorithm mem pool */
++#define __USER_DYNAMIC_ALGO_MEM_EN__           (0)
++#if __USER_DYNAMIC_ALGO_MEM_EN__
++#define GH3X2X_ALGORITHMS_MEMORY_SIZE_USERSET  (0)
++#endif
++
++/* function algo enable config */
++#define __USE_GOODIX_ADT_ALGORITHM__           (0)
++#define __USE_GOODIX_HR_ALGORITHM__            (1)
++#define __USE_GOODIX_HRV_ALGORITHM__           (1)
++#define __USE_GOODIX_HSM_ALGORITHM__           (0)
++#define __USE_GOODIX_SPO2_ALGORITHM__          (1)
++#define __USE_GOODIX_ECG_ALGORITHM__           (0)
++#define __USE_GOODIX_BT_ALGORITHM__            (0)
++#define __USE_GOODIX_RESP_ALGORITHM__          (0)
++#define __USE_GOODIX_AF_ALGORITHM__            (0)
++#define __USE_GOODIX_BP_ALGORITHM__            (0)
++#define __USE_GOODIX_SOFT_ADT_ALGORITHM__      (1)
++
++/* algorithm log */
++#define __GH3X2X_ALGO_LOG_LV_0__                (0)    /** no log **/
++#define __GH3X2X_ALGO_LOG_LV_1__                (1)    /** include EXAMPLE LOG information **/
++#define __GH3X2X_ALGO_LOG_LV_2__                (2)    /** include EXAMPLE LOG debug **/
++
++#define __ALGO_LOG_CONFIG__                    (__GH3X2X_ALGO_LOG_LV_1__)
++
++/* BT NTC Drv Convert config*/
++#if __USE_GOODIX_BT_ALGORITHM__
++#define __USE_GOODIX_DRV_NTC_Convert                       (1)
++#endif
++
++/* algorithm config max number */
++#define __GOODIX_ALGO_CFG_LIST_MAX_NUM__       (1)
++
++/*algorithm output value process strategy config*/
++#define __GH3X2X_HR_OUTPUT_VALUE_STRATEGY_EN__ (0)
++
++/* algoritm channel nunber config*/
++#define __HR_ALGORITHM_SUPPORT_CHNL_NUM__      (4)  /* range 1~4 */
++#define __SPO2_ALGORITHM_SUPPORT_CHNL_NUM__    (1)  /* range 1-4 */
++
++/* algo and drv interactivity*/
++#define __GH_MSG_WTIH_DRV_LAYER_EN__           (0)
++#define __GH_SEPARATE_ALGO_EN__                (0)
++
++#if (__USE_GOODIX_SOFT_ADT_ALGORITHM__)
++#define __SOFT_ADT_IR_DETECT_TIMEOUT__         (30) /** (recomended value = 30 seconds) ir detect timeout **/
++#endif
++
++#define GH_SEND_MSG_WEAR_EVENT(event)   //add your code to send message to drv layer
++
++#define GH_ALGO_ADC_DATA_ONLY                   0
++#define GH_ALGO_ADC_IPD_DATA                    1
++#define GH_ALGO_DATA_TYPE                       GH_ALGO_ADC_DATA_ONLY
++#define GH_ALGO_CHIP_3018                       0
++#define GH_ALGO_CHIP_3X2X                       1
++#define GH_ALGO_CHIP_33XX                       2
++#define GH_ALGO_CHIP_3036                       3
++#define GH_ALGO_CHIP_TYPE                       GH_ALGO_CHIP_3X2X
++#define GH_ALGO_DATA_BIT_NUM                    24
++#define PPG_CHANNEL_NUM                         4
++#define GH_SPO2_PPG_CHANNEL_NUM                 __SPO2_ALGORITHM_SUPPORT_CHNL_NUM__
++
++#define GH_MAX(X, Y)                            (((X) > (Y)) ? (X) : (Y))
++#define GH_ALGO_PPG_CHL_NUM                     GH_MAX(__HR_ALGORITHM_SUPPORT_CHNL_NUM__, __SPO2_ALGORITHM_SUPPORT_CHNL_NUM__)
++#define GH_ALGO_BYTE_BITS                       (8)
++#define GH_ALGO_EN_FLAG_OFFSET                  (7)
++#define GH_ALGO_EN_FLAG_MAX                     ((GH_ALGO_PPG_CHL_NUM * 3 / GH_ALGO_BYTE_BITS) \
++                                                + (((GH_ALGO_PPG_CHL_NUM * 3) % GH_ALGO_BYTE_BITS) ? 1 : 0))
++
++
++/***********************************  DO NOT MODIFY FOLLOWING CODE *******************************/
++#if (\
++    __USE_GOODIX_HR_ALGORITHM__      ||\
++    __USE_GOODIX_HRV_ALGORITHM__     ||\
++    __USE_GOODIX_HSM_ALGORITHM__     ||\
++    __USE_GOODIX_SPO2_ALGORITHM__    ||\
++    __USE_GOODIX_ECG_ALGORITHM__     ||\
++    __USE_GOODIX_BT_ALGORITHM__      ||\
++    __USE_GOODIX_RESP_ALGORITHM__    ||\
++    __USE_GOODIX_AF_ALGORITHM__      ||\
++    __USE_GOODIX_BP_ALGORITHM__      ||\
++    __USE_GOODIX_SOFT_ADT_ALGORITHM__\
++    )
++#define __GOODIX_ALGO_CALL_MODE__           (1)
++#else
++#define __GOODIX_ALGO_CALL_MODE__           (0)
++#endif
++
++#endif /* _GH3X2X_DEMO_ALGO_CALL_H_ */
++
++/********END OF FILE********* Copyright (c) 2003 - 2022, Goodix Co., Ltd. ********/
+diff --color -ruN a/demo_algo_code/goodix_algo_application/src/gh3x2x_demo_algo_reg_array.c b/demo_algo_code/goodix_algo_application/src/gh3x2x_demo_algo_reg_array.c
+--- a/demo_algo_code/goodix_algo_application/src/gh3x2x_demo_algo_reg_array.c	2025-06-11 17:39:32
++++ b/demo_algo_code/goodix_algo_application/src/gh3x2x_demo_algo_reg_array.c	2026-09-18 17:00:15
+@@ -1,102 +1,103 @@
+-/**
+- * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
+- * 
+- * @file    gh3x2x_demo_reg_array.c
+- * 
+- * @brief   gh3x2x driver lib reg config array
+- * 
+- * @author  Gooidx Iot Team
+- * 
+- */
+-
+-#include "gh3x2x_demo_algo_config.h"
+-#include "gh_drv.h"
+-
+-/// HR
+-const STGh3x2xReg gh3x2x_algo_reg_list0[] =
+-{
+-    {0x33C0, 0x0000}, {0x33C2, 0x0000}, {0x33C4, 0x0000}, {0x33C6, 0x0000}, {0x33C8, 0x0000}, {0x33CA, 0x0000},
+-    {0x33CC, 0x0000}, {0x33CE, 0x0000}, {0x33D0, 0x0000}, {0x33D2, 0x0000}, {0x36C0, 0x0000}, {0x36C2, 0x0000},
+-    {0x36C4, 0x0014}, {0x36C6, 0x0000}, {0x36C8, 0x000A}, {0x36CA, 0x0000}, {0x36CC, 0x0003}, {0x36CE, 0x0000},
+-    {0x36D0, 0x0003}, {0x36D2, 0x0000}, {0x42C0, 0x3D8D}, {0x42C2, 0x0000}, {0x42C4, 0x92D6}, {0x42C6, 0xFFFB},
+-    {0x42C8, 0x0FC6}, {0x42CA, 0x0011}, {0x42CC, 0x0001}, {0x42CE, 0x0000}, {0x42D0, 0x0000}, {0x42D2, 0x0000},
+-    {0x42D4, 0x001E}, {0x42D6, 0x0000}, {0x42D8, 0x000F}, {0x42DA, 0x0000}, {0x42DC, 0x0004}, {0x42DE, 0x0000},
+-    {0x42E0, 0x0003}, {0x42E2, 0x0000}, {0x42E4, 0x0000}, {0x42E6, 0x0000}, {0x42E8, 0x0000}, {0x42EA, 0x0000},
+-    {0xFFFF, 0x0001}
+-};
+-
+-#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 1)
+-const STGh3x2xReg gh3x2x_algo_reg_list1[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 1) */
+-
+-#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 2)
+-const STGh3x2xReg gh3x2x_algo_reg_list2[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 2) */
+-
+-#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 3)
+-const STGh3x2xReg gh3x2x_algo_reg_list3[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 3) */
+-
+-#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 4)
+-const STGh3x2xReg gh3x2x_algo_reg_list4[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 4) */
+-
+-#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 5)
+-const STGh3x2xReg gh3x2x_algo_reg_list5[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 5) */
+-
+-#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 6)
+-const STGh3x2xReg gh3x2x_algo_reg_list6[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 6) */
+-
+-#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 7)
+-const STGh3x2xReg gh3x2x_algo_reg_list7[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 7) */
+-
+-const STGh3x2xInitConfig g_stGoodixAlgoCfgListArr[__GOODIX_ALGO_CFG_LIST_MAX_NUM__] = 
+-{
+-    {gh3x2x_algo_reg_list0,sizeof(gh3x2x_algo_reg_list0) / sizeof(gh3x2x_algo_reg_list0[0])},
+-    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 1)
+-    {gh3x2x_algo_reg_list1,sizeof(gh3x2x_algo_reg_list1) / sizeof(gh3x2x_algo_reg_list1[0])},
+-    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 1) */
+-    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 2)
+-    {gh3x2x_algo_reg_list2,sizeof(gh3x2x_algo_reg_list2) / sizeof(gh3x2x_algo_reg_list2[0])},
+-    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 2) */
+-    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 3)
+-    {gh3x2x_algo_reg_list3,sizeof(gh3x2x_algo_reg_list3) / sizeof(gh3x2x_algo_reg_list3[0])},
+-    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 3) */
+-    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 4)
+-    {gh3x2x_algo_reg_list4,sizeof(gh3x2x_algo_reg_list4) / sizeof(gh3x2x_algo_reg_list4[0])},
+-    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 4) */
+-    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 5)
+-    {gh3x2x_algo_reg_list5,sizeof(gh3x2x_algo_reg_list5) / sizeof(gh3x2x_algo_reg_list5[0])},
+-    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 5) */
+-    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 6)
+-    {gh3x2x_algo_reg_list6,sizeof(gh3x2x_algo_reg_list6) / sizeof(gh3x2x_algo_reg_list6[0])},
+-    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 6) */
+-    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 7)
+-    {gh3x2x_algo_reg_list7,sizeof(gh3x2x_algo_reg_list7) / sizeof(gh3x2x_algo_reg_list7[0])},
+-    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 7) */
+-};
+-
++/**
++ * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
++ * 
++ * @file    gh3x2x_demo_reg_array.c
++ * 
++ * @brief   gh3x2x driver lib reg config array
++ * 
++ * @author  Gooidx Iot Team
++ * 
++ */
++
++#include "gh3x2x_demo_algo_config.h"
++#include "gh_drv.h"
++
++/// HR
++const STGh3x2xReg gh3x2x_algo_reg_list0[] =
++{
++    {0x33C0, 0x0000}, {0x33C2, 0x0000}, {0x33C4, 0x0000}, {0x33C6, 0x0000}, {0x33C8, 0x0000}, {0x33CA, 0x0000},
++    {0x33CC, 0x0000}, {0x33CE, 0x0000}, {0x33D0, 0x0000}, {0x33D2, 0x0000}, {0x35C0, 0x0004}, {0x35C4, 0x0100},
++    {0x35C6, 0x0302}, {0x36C0, 0x0000}, {0x36C2, 0x0000}, {0x36C4, 0x0020}, {0x36C6, 0x0000}, {0x36C8, 0x0010},
++    {0x36CA, 0x0000}, {0x36CC, 0x0003}, {0x36CE, 0x0000}, {0x36D0, 0x0003}, {0x36D2, 0x0000}, {0x42C0, 0x846C},
++    {0x42C2, 0xFFFD}, {0x42C4, 0x87E3}, {0x42C6, 0xFFFF}, {0x42C8, 0xCC38}, {0x42CA, 0x000F}, {0x42CC, 0x0001},
++    {0x42CE, 0x0000}, {0x42D0, 0x0000}, {0x42D2, 0x0000}, {0x42D4, 0x001E}, {0x42D6, 0x0000}, {0x42D8, 0x000F},
++    {0x42DA, 0x0000}, {0x42DC, 0x0004}, {0x42DE, 0x0000}, {0x42E0, 0x0003}, {0x42E2, 0x0000}, {0x42E4, 0x0000},
++    {0x42E6, 0x0000}, {0x42E8, 0x0000}, {0x42EA, 0x0000}, {0x44C0, 0x0001}, {0x44CC, 0xFF01}, {0x44D4, 0xFF00},
++    {0xFFFF, 0x0001}
++};
++
++#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 1)
++const STGh3x2xReg gh3x2x_algo_reg_list1[] =
++{
++    {0,0},
++};
++#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 1) */
++
++#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 2)
++const STGh3x2xReg gh3x2x_algo_reg_list2[] =
++{
++    {0,0},
++};
++#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 2) */
++
++#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 3)
++const STGh3x2xReg gh3x2x_algo_reg_list3[] =
++{
++    {0,0},
++};
++#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 3) */
++
++#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 4)
++const STGh3x2xReg gh3x2x_algo_reg_list4[] =
++{
++    {0,0},
++};
++#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 4) */
++
++#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 5)
++const STGh3x2xReg gh3x2x_algo_reg_list5[] =
++{
++    {0,0},
++};
++#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 5) */
++
++#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 6)
++const STGh3x2xReg gh3x2x_algo_reg_list6[] =
++{
++    {0,0},
++};
++#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 6) */
++
++#if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 7)
++const STGh3x2xReg gh3x2x_algo_reg_list7[] =
++{
++    {0,0},
++};
++#endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 7) */
++
++const STGh3x2xInitConfig g_stGoodixAlgoCfgListArr[__GOODIX_ALGO_CFG_LIST_MAX_NUM__] = 
++{
++    {gh3x2x_algo_reg_list0,sizeof(gh3x2x_algo_reg_list0) / sizeof(gh3x2x_algo_reg_list0[0])},
++    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 1)
++    {gh3x2x_algo_reg_list1,sizeof(gh3x2x_algo_reg_list1) / sizeof(gh3x2x_algo_reg_list1[0])},
++    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 1) */
++    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 2)
++    {gh3x2x_algo_reg_list2,sizeof(gh3x2x_algo_reg_list2) / sizeof(gh3x2x_algo_reg_list2[0])},
++    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 2) */
++    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 3)
++    {gh3x2x_algo_reg_list3,sizeof(gh3x2x_algo_reg_list3) / sizeof(gh3x2x_algo_reg_list3[0])},
++    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 3) */
++    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 4)
++    {gh3x2x_algo_reg_list4,sizeof(gh3x2x_algo_reg_list4) / sizeof(gh3x2x_algo_reg_list4[0])},
++    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 4) */
++    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 5)
++    {gh3x2x_algo_reg_list5,sizeof(gh3x2x_algo_reg_list5) / sizeof(gh3x2x_algo_reg_list5[0])},
++    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 5) */
++    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 6)
++    {gh3x2x_algo_reg_list6,sizeof(gh3x2x_algo_reg_list6) / sizeof(gh3x2x_algo_reg_list6[0])},
++    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 6) */
++    #if (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 7)
++    {gh3x2x_algo_reg_list7,sizeof(gh3x2x_algo_reg_list7) / sizeof(gh3x2x_algo_reg_list7[0])},
++    #endif /* (__GOODIX_ALGO_CFG_LIST_MAX_NUM__ > 7) */
++};
++
+diff --color -ruN a/demo_kernel_code/kernel/gh_demo_config.h b/demo_kernel_code/kernel/gh_demo_config.h
+--- a/demo_kernel_code/kernel/gh_demo_config.h	2025-06-11 17:39:31
++++ b/demo_kernel_code/kernel/gh_demo_config.h	2026-09-18 18:38:57
+@@ -1,375 +1,374 @@
+-/**
+- * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
+- *
+- * @file    gh_demo_config.h
+- *
+- * @brief   gh3x2x driver lib demo configuration file
+- *
+- * @author  Gooidx Iot Team
+- *
+- */
+-#ifndef _GH_DEMO_CONFIG_H_
+-#define _GH_DEMO_CONFIG_H_
+-#include "gh_drv.h"
+-#include "stdio.h"
+-
+-
+-/* bsp config */
+-/**< interface config __GH3X2X_INTERFACE_I2C__ /__GH3X2X_INTERFACE_SPI__ */
+-#define __GH3X2X_INTERFACE__                            (__GH3X2X_INTERFACE_SPI__)
+-#if(__GH3X2X_INTERFACE__ == __GH3X2X_INTERFACE_SPI__)
+-#define __GH3X2X_SPI_TYPE__                             (__GH3X2X_SPI_TYPE_SOFTWARE_CS__)
+-#endif
+-#if(__GH3X2X_INTERFACE__ == __GH3X2X_INTERFACE_I2C__)
+-#define __GH3X2X_I2C_DEVICE_ID__                        (GH3X2X_I2C_ID_SEL_1L0L)
+-#endif
+-#define __GS_SENSITIVITY_CONFIG__                       (GSENSOR_SENSITIVITY_512_COUNTS_PER_G)  /**< gsensor sensitivity config */
+-#define __GS_GYRO_ENABLE__                              (0)        /*Gyro enable*/
+-#define __GS_NONSYNC_READ_EN__                          (0)
+-#if __GS_NONSYNC_READ_EN__
+-#define __GS_SAMPLE_RATE_HZ__                           (25)        /*gsenor sample rate(Hz)*/
+-#define __GS_READ_POINT_NUM__                           (6)         /* host read gsensor sample num in one time */
+-#define __GS_READ_POINT_NUM_JITTER__                    (3)         /* host read gsensor sample num jitter */
+-#endif
+-
+-#define __CAP_ENABLE__                                  (0)         /*Cap enable*/
+-#define __TEMP_ENABLE__                                 (0)         /*Temperature sensor enable*/
+-
+-#define __SUPPORT_HARD_RESET_CONFIG__                   (1)         /**< support hard reset config */
+-#define __INTERRUPT_PROCESS_MODE__                      (__NORMAL_INT_PROCESS_MODE__)  /**< 2:polling+int 1:use polling 0:use interrupt */
+-#define __PLATFORM_WITHOUT_OS__                         (0)         /**< 1:not use os  0:use os */
+-#define __PASS_THROUGH_MODE__                           (0)
+-#define __GH3X2X_MP_MODE__                              (0)         /**< 1:enable mp mode  0:unable mp mode */
+-#define __GH3X2X_CASCADE_EN__                           (0)         /** dual-ecg function enable **/
+-#if (__GH3X2X_CASCADE_EN__ && __GH3X2X_INTERFACE_I2C__)
+-#define __GH3X2X_I2C_DEVICE_SLAVER_ID__                 (GH3X2X_I2C_ID_SEL_1H0L)
+-#endif
+-#define __GH3X2X_ECG_RTYPE_5M__                         (0)
+-#define __RESET_AGCINFO_BEFORE_SAMPLE__                 (0)
+-#define __CURRENT_ECODE_CALIBRATE__                     (0)
+-
+-/* app config */
+-#define __USER_DYNAMIC_DRV_BUF_EN__                     (0)        /*get rawdata buf via malloc*/
+-#define __DRIVER_LIB_MODE__                             (__DRV_LIB_WITH_ALGO__)
+-#define __DRIVER_OPEN_ALL_SOURCE__                      (0)  //0: do not open all driver source(this mode can support goodix algorithm)   1: open all driver source (this mode may can NOT support goodix algorithm) 
+-#define __FUNC_RUN_SIMULTANEOUSLY_SUPPORT__             (1)
+-#define __GH_MSG_WITH_ALGO_LAYER_EN__                   (0)        /** enable message with algorithm send/recive process **/
+-
+-/* ppg function type */
+-#define __FUNC_TYPE_HR_ENABLE__                         (1)    /**< hb function tye */
+-#define __FUNC_TYPE_HRV_ENABLE__                        (1)    /**< hrv function tye */
+-#define __FUNC_TYPE_HSM_ENABLE__                        (1)    /**< hsm function tye */
+-#define __FUNC_TYPE_SPO2_ENABLE__                       (1)    /**< spo2 function tye */
+-#define __FUNC_TYPE_BT_ENABLE__                         (1)    /**< bt function tye */
+-#define __FUNC_TYPE_RESP_ENABLE__                       (1)    /**< resp function tye */
+-#define __FUNC_TYPE_AF_ENABLE__                         (1)    /**< af function tye */
+-#define __FUNC_TYPE_TEST_ENABLE__                       (1)    /**< test function tye */
+-#define __SUPPORT_HARD_ADT_CONFIG__                     (1)    /**< support hard adt config */
+-#define __FUNC_TYPE_SOFT_ADT_ENABLE__                   (1)    /**< support soft adt config */
+-#define __SUPPORT_SOFT_AGC_CONFIG__                     (1)    /**< support soft agc config */
+-
+-#define __HARD_ADT_ALGO_CHECK_EN__                      (0)   //0: do not use algo to replace hard adt module in chip  1: use algo to replace hard adt mudule in chip
+-#define __ADT_ONLY_PARTICULAR_WM_CONFIG__               (0)  //0: Do not set particular watermark at openning function is ADT only  N (N>3&&N<800): set particular watermark, and this value is N at openning function is ADT only
+-
+-/* ecg function type */
+-#define __FUNC_TYPE_ECG_ENABLE__                        (1)    /**< ecg algorithm tye */
+-#if __FUNC_TYPE_ECG_ENABLE__
+-#define __FUNC_TYPE_PWTT_ENABLE__                       (1)    /**< pwtt algorithm tye */
+-#define __FUNC_TYPE_BP_ENABLE__                         (1)    /**< bp algorithm tye */
+-#define __SUPPORT_ECG_LEAD_OFF_DET_800HZ__              (1)    
+-#define GH3X2X_ECG_DOWNSAMP_CHNL_NUM                    (1)    /**< ECG downsample chn number */
+-
+-#if ( __FUNC_TYPE_HR_ENABLE__)
+-#define __SUPPORT_PPG_DOWNSAMP__                        (0)    /**< PPG downsample algorithm tye */
+-#define GH3X2X_PPG_DOWNSAMP_CHNL_NUM                    (0)    /**< PPG downsample chn number */
+-#endif
+-#endif
+-
+-/*lead off parameters setting*/
+-#define LEADOFF_DET_IQ_AMP_THR_uV                       (1500)
+-#define LEADOFF_DET_IQ_AMP_DIFF_THR_uV                  (1000)
+-#define LEADOFF_DET_IQ_VAL_THR_mV                       (80)
+-
+-/* config about mult-sensor event process*/
+-#define __GH_MULTI_SENSOR_EVENT_PRO_CONIG__             (1)        /**0: no support multi-sensor event process  1: support multi-sensor event process*/
+-#define __GH_MULTI_SENSOR_TIMER_PERIOD_MS__             (1000)     /** period of multi-sensor timer, unit: ms*/
+-#define __GH_MULTI_SENSOR_WEAR_EXAMPLE_EN__             (0)        /** this is example for using multi-senosr process to check wear on, you can set 1 to enable this example process*/
+-
+-/* config about g-sensor move detection */
+-#define __GSENSOE_MOVE_DETECT_SUPPORT__                 (1)         /**0: no NOT support move detection 1: support move detection*/
+-#define __GSENSOR_MOVE_THRESHOLD__                      (65)        /**< DIFF of sqrt(x^2+y^2+z^2) */
+-#define __GSENSOR_MOVE_CNT_THRESHOLD__                  (1)         /**< (recomended value = 1) more than how many times of movement can be judged as effective moveing*/
+-#define __GSENSOR_NOT_MOVE_CNT_THRESHOLD__              (150)       /**< (recommended value = 1.5 * sample rate of g-sensor ) more than how many times of movement can be judged as effective non-moveing*/    
+-#define __GSENSOR_MOVE_TIME_OUT_THRESHOLD_MS__          (5000)      /**range 1~5000, the time of not move > __GSENSOR_MOVE_TIME_OUT_THRESHOLD_MS__, event : GH3X2X_MULTI_SENSOR_EVENT_GS_MOVE_TIME_OUT will be generated*/
+-
+-/*sofe agc config*/
+-#if __SUPPORT_SOFT_AGC_CONFIG__
+-#define GH3X2X_NEW_AGC_SLOT_NUM_LIMIT                   (8u)
+-#define GH3X2X_NEW_AGC_SUB_CHNL_NUM_LIMIT               (32u)
+-#endif
+-
+-/* marco of divide zero flag enable*/
+-#define   GH3X2X_DIVIDE_ZERO_FLAG_UPLODE_EN             (1)
+-
+-/* marco of wake up confirm enable*/
+-#define   GH3X2X_WAKE_UP_CONFIRM_EN                     (1)
+-
+-/*sample config*/
+-#define __SLOT_SEQUENCE_DYNAMIC_ADJUST_EN__             (1)
+-
+-/*debug config*/
+-#define __SUPPORT_PROTOCOL_ANALYZE__                    (1)         /**< driver lib support protocol analyze */
+-#if (__SUPPORT_PROTOCOL_ANALYZE__)
+-#define __UPLOAD_ALGO_RESULT__                          (1)         /**< upload algorithm result or not */
+-#define __PROTOCOL_SERIAL_TYPE__                        (__PROTOCOL_SERIAL_USE_BLE__)  /**< protocol communicate serial port type */
+-#define __SUPPORT_ZIP_PROTOCOL__                        (1)
+-#define __FIFO_PACKAGE_SEND_ENABLE__                    (0)         /** 1: fifo package send mode enable  0: cannot open fifo package send mode */
+-#define __GH3X2X_PROTOCOL_SEND_TIMER_PERIOD__           (10)        /** (unit : ms ) protocal data send timer period */
+-#define __GH3X2X_PROTOCOL_DATA_FIFO_LEN__               (64)        /** protocal data send fifo length **/
+-#define __GH3X2X_PROTOCOL_EVENT_FIFO_LEN__              (16)        /** protocal event send fifo length **/
+-#define __GH3X2X_PROTOCOL_EVENT_WAITING_ACK_TIME__      (500)       /** (unit : ms ) protocal data waiting ack time, if time out, we will resend */
+-#define __GH3X2X_PROTOCOL_EVENT_RESEND_NUM__            (255)       /***** 0~255  protocal resend num (255: evenlasting resending) */
+-#define __GH3X2X_PROTOCOL_DATA_FUNCTION_INTERCEPT__     (GH3X2X_NO_FUNCTION) /* GH3X2X_NO_FUNCTION: none function date will be intercepted     (GH3X2X_FUNCTION_HR|GH3X2X_FUNCTION_HRV):  HR and HRV function data will be intercepted, those data will not output via protocal */
+-#endif
+-#define __SUPPORT_SAMPLE_DEBUG_MODE__                   (0)         /**< use sample debug mode */
+-#define __SUPPORT_ELECTRODE_WEAR_STATUS_DUMP__          (1)         /** use electrode wear status dump */
+-#define __GH3X2X_INFO_LOG_TYPE__                        (__GH3X2X_INFO_LOG_METHOD_0__) /**< example log config */
+-#define __GH3X2X_INFO_LOG_LEVEL__                       (__GH3X2X_INFO_LOG_LV_0__) /**< example log config */
+-#define   GH3X2X_INFO_LOG_MAX_LEN                       (180)
+-#define   GH3X2X_IODATA_LOG_MAX_LEN                     (512)
+-#define __SUPPORT_ENGINEERING_MODE__                    (1)         /**< enginerring mode*/
+-#define __GH3X2X_MEM_POOL_CHECK_EN__                    (0)         /** 1: drv lib checks algo mem pool befor every time of algo calculating   0: do not check  **/
+-
+-/* operate config */
+-#define __SUPPORT_FUNCTION_SAMPLE_RATE_MODIFY__         (0)         /** 0: only use default sample rate in array cfg  1: modifying function sample rate is supported via API: Gh3x2xDemoFunctionSampleRateSet */
+-
+-/*config list*/
+-#define __GH3X2X_CFG_LIST_MAX_NUM__                     (8)         /**< max num of config list(1 ~ 8) */
+-
+-/* other config */
+-#define __SUPPORT_HOOK_FUNC_CONFIG__                    (1)         /**< support hook func config */
+-#define __SUPPORT_ALGO_INPUT_OUTPUT_DATA_HOOK_CONFIG__  (1)         /**< enable it ,we can get algo input and output data **/
+-#define __SUPPORT_ALGO_INPUT_OUTPUT_DATA_LOG__          (0)         /**< enable it ,can print algo input and output data **/
+-
+-/* gh3x2x data buffer size config,this is related to gh3x2x fifo water mark config */
+-#define __GH3X2X_RAWDATA_BUFFER_SIZE__                  (200 * 4)     /**< rawdata buffer size in byte */
+-#define __GH3X2X_RAWDATA_SLAVE_BUFFER_SIZE__            (200 * 4)     /**< rawdata buffer size in byte for slave chip*/
+-
+-/* gsensor data buffer size config,every g sensor data has 6 bytes(x,y,z) */
+-#define __GSENSOR_DATA_BUFFER_SIZE__                    (300)       /**< max num of gsensor data */
+-
+-#define __CAP_DATA_BUFFER_SIZE__                        (200)       /**< max num of CAP data */
+-#define __TEMP_DATA_BUFFER_SIZE__                       (200)       /**< max num of TEMP data */
+-
+-/* function channel nunber config*/
+-#define   GH3X2X_ADT_CHNL_NUM                           (8)        /**< ADT function channel num */
+-#define   GH3X2X_HR_CHNL_NUM                            (32)        /**< HR function channel num */
+-#define   GH3X2X_HRV_CHNL_NUM                           (16)        /**< HRV function channel num */
+-#define   GH3X2X_HSM_CHNL_NUM                           (16)        /**< HSM function channel num */
+-#define   GH3X2X_BP_CHNL_NUM                            (16)        /**< BP function channel num */
+-#define   GH3X2X_PWA_CHNL_NUM                           (16)        /**< PWA function channel num */
+-#define   GH3X2X_SPO2_CHNL_NUM                          (32)        /**< SPO2 function channel num */
+-#define   GH3X2X_ECG_CHNL_NUM                           (8)        /**< ECG function channel num */
+-#define   GH3X2X_PWTT_CHNL_NUM                          (32)        /**< PWTT function channel num */
+-#define   GH3X2X_SOFT_ADT_CHNL_NUM                      (16)        /**< soft adt function channel num */
+-#define   GH3X2X_BT_CHNL_NUM                            (16)        /**< BT function channel num */
+-#define   GH3X2X_RESP_CHNL_NUM                          (16)        /**< RESP function channel num */
+-#define   GH3X2X_AF_CHNL_NUM                            (16)        /**< AF function channel num */
+-#define   GH3X2X_TEST_CHNL_NUM                          (16)        /**< TEST1 function channel num */
+-
+-/*fifo monitor*/
+-#define GH3X2X_FIFO_MONITOR_EN                          (1)
+-#define GH3X2X_FIFO_MONITOR_DECIMATION_SUPPORT          (0)
+-
+-#define GH3X2X_SEND_MSG_ALGO_CFG_INIT(g_pstGh3x2xFrameInfo, g_uchGh3x2xRegCfgArrIndex)         //add your code to send message to algorithm layer
+-#define GH3X2X_SEND_MSG_ALGO_START(unFuncMode)  //add your code to send message to algorithm layer
+-#define GH3X2X_SEND_MSG_ALGO_STOP(unFuncMode)   //add your code to send message to algorithm layer
+-#define GH3X2X_SEND_MSG_ALGO_CAL(unFunctionID)              //add your code to send message to algorithm layer
+-#define GH3X2X_PRO_MSG_SOFT_WEAR_EVEVT()        // if got soft wear event, GH3X2X_SetSoftEvent(GH3X2X_SOFT_EVENT_WEAR_OFF/GH3X2X_SOFT_EVENT_WEAR_ON)
+-
+-/***********************************  DO NOT MODIFY FOLLOWING CODE *******************************/
+-/* log def*/
+-#if (__GH3X2X_INFO_LOG_LEVEL__ > __GH3X2X_INFO_LOG_LV_0__)
+-#if (__GH3X2X_INFO_LOG_LEVEL__ & __GH3X2X_INFO_LOG_LV_1__)
+-#define   GH3X2X_INFO_LOG(...)              do{\
+-                                            if(g_pSnprintfUserIn)\
+-                                            {\
+-                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_INFO_LOG_MAX_LEN] = {0};\
+-                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_INFO_LOG_MAX_LEN, "[LOG_I] " __VA_ARGS__);\
+-                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
+-                                            }\
+-                                            if(g_pPrintfUserIn)g_pPrintfUserIn("[LOG_I] " __VA_ARGS__);\
+-                                        } while(0)
+-#else
+-#define   GH3X2X_INFO_LOG(...)
+-#endif
+-
+-#if (__GH3X2X_INFO_LOG_LEVEL__ & __GH3X2X_INFO_LOG_LV_2__)
+-#define   GH3X2X_DEBUG_LOG(...)              do{\
+-                                            if(g_pSnprintfUserIn)\
+-                                            {\
+-                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_INFO_LOG_MAX_LEN] = {0};\
+-                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_INFO_LOG_MAX_LEN, "[LOG_D] " __VA_ARGS__);\
+-                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
+-                                            }\
+-                                            if(g_pPrintfUserIn)g_pPrintfUserIn("[LOG_D] " __VA_ARGS__);\
+-                                        } while(0)
+-#else
+-#define   GH3X2X_DEBUG_LOG(...)	
+-#endif
+-
+-#if (__GH3X2X_INFO_LOG_LEVEL__ & __GH3X2X_INFO_LOG_LV_3__)
+-#define   GH3X2X_WARNING_LOG(...)              do{\
+-                                            if(g_pSnprintfUserIn)\
+-                                            {\
+-                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_INFO_LOG_MAX_LEN] = {0};\
+-                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_INFO_LOG_MAX_LEN, "[LOG_W] " __VA_ARGS__);\
+-                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
+-                                            }\
+-                                            if(g_pPrintfUserIn)g_pPrintfUserIn("[LOG_W] " __VA_ARGS__);\
+-                                        } while(0)
+-#else
+-#define   GH3X2X_WARNING_LOG(...)	
+-#endif
+-
+-#if (__GH3X2X_INFO_LOG_LEVEL__ & __GH3X2X_INFO_LOG_LV_4__)
+-#define   GH3X2X_ERROR_LOG(...)              do{\
+-                                            if(g_pSnprintfUserIn)\
+-                                            {\
+-                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_INFO_LOG_MAX_LEN] = {0};\
+-                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_INFO_LOG_MAX_LEN,"[LOG_E] "  __VA_ARGS__);\
+-                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
+-                                            }\
+-                                            if(g_pPrintfUserIn)g_pPrintfUserIn("[LOG_E] "  __VA_ARGS__);\
+-                                        } while(0)
+-#else
+-#define   GH3X2X_ERROR_LOG(...)	
+-#endif
+-
+-#else
+-#define   GH3X2X_INFO_LOG(...)
+-#define   GH3X2X_ERROR_LOG(...)
+-#define   GH3X2X_DEBUG_LOG(...)
+-#define   GH3X2X_WARNING_LOG(...)
+-#endif
+-
+-#if (__SUPPORT_ALGO_INPUT_OUTPUT_DATA_LOG__)
+-#define   GH3X2X_IODATA_LOG(...)            do{\
+-                                            if(g_pSnprintfUserIn)\
+-                                            {\
+-                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_IODATA_LOG_MAX_LEN] = {0};\
+-                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_IODATA_LOG_MAX_LEN,__VA_ARGS__);\
+-                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
+-                                            }\
+-                                            if(g_pPrintfUserIn)g_pPrintfUserIn(__VA_ARGS__);\
+-                                        } while(0)
+-
+-#else
+-#define   GH3X2X_IODATA_LOG(...)
+-#endif
+-
+-#if (__DRIVER_LIB_MODE__ == __DRV_LIB_WITH_ALGO__)
+-#define __GH3X2X_MEM_POOL_CHECK_EN__ (0)
+-#endif
+-
+-#ifndef __FUNC_TYPE_SOFT_ADT_ENABLE__
+-#define __FUNC_TYPE_SOFT_ADT_ENABLE__  (0)
+-#endif
+-
+-#if __FUNC_TYPE_ECG_ENABLE__ == 0
+-#define __FUNC_TYPE_PWTT_ENABLE__           (0)    /**< pwtt algorithm tye */
+-#define __FUNC_TYPE_BP_ENABLE__             (0)    /**< bp algorithm tye */
+-#define __SUPPORT_ECG_LEAD_OFF_DET_800HZ__  (0)
+-#endif
+-
+-#if(__GH3X2X_INTERFACE__ != __GH3X2X_INTERFACE_SPI__)
+-#define __GH3X2X_SPI_TYPE__                 (__GH3X2X_SPI_TYPE_SOFTWARE_CS__)              
+-#endif
+-#if(__GH3X2X_INTERFACE__ != __GH3X2X_INTERFACE_I2C__)
+-#define __GH3X2X_I2C_DEVICE_ID__            (GH3X2X_I2C_ID_SEL_1L0L)
+-#endif
+-
+-#ifdef GH3X2X_MAIN_FUNC_CHNL_NUM
+-#undef GH3X2X_MAIN_FUNC_CHNL_NUM
+-#endif
+-#define GH3X2X_MAIN_FUNC_CHNL_NUM 1
+-#if __SUPPORT_HARD_ADT_CONFIG__
+-#if GH3X2X_ADT_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
+-#undef GH3X2X_MAIN_FUNC_CHNL_NUM
+-#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_ADT_CHNL_NUM
+-#endif
+-#endif
+-#if __FUNC_TYPE_HR_ENABLE__
+-#if GH3X2X_HR_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
+-#undef GH3X2X_MAIN_FUNC_CHNL_NUM
+-#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_HR_CHNL_NUM
+-#endif
+-#endif
+-#if __FUNC_TYPE_HRV_ENABLE__
+-#if GH3X2X_HRV_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
+-#undef GH3X2X_MAIN_FUNC_CHNL_NUM
+-#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_HRV_CHNL_NUM
+-#endif
+-#endif
+-#if __FUNC_TYPE_SPO2_ENABLE__
+-#if GH3X2X_SPO2_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
+-#undef GH3X2X_MAIN_FUNC_CHNL_NUM
+-#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_SPO2_CHNL_NUM
+-#endif
+-#endif
+-#if __FUNC_TYPE_ECG_ENABLE__
+-#if GH3X2X_ECG_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
+-#undef GH3X2X_MAIN_FUNC_CHNL_NUM
+-#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_ECG_CHNL_NUM
+-#endif
+-#endif
+-#if __FUNC_TYPE_TEST_ENABLE__
+-#if GH3X2X_TEST_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
+-#undef GH3X2X_MAIN_FUNC_CHNL_NUM
+-#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_TEST_CHNL_NUM
+-#endif
+-#endif
+-
+-#ifdef GH3X2X_FUNC_CHNL_NUM_MAX
+-#undef GH3X2X_FUNC_CHNL_NUM_MAX
+-#endif
+-#define GH3X2X_FUNC_CHNL_NUM_MAX GH3X2X_MAIN_FUNC_CHNL_NUM
+-#if __FUNC_TYPE_SOFT_ADT_ENABLE__
+-#if GH3X2X_SOFT_ADT_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
+-#undef GH3X2X_FUNC_CHNL_NUM_MAX
+-#define GH3X2X_FUNC_CHNL_NUM_MAX GH3X2X_SOFT_ADT_CHNL_NUM
+-#endif
+-#endif
+-
+-#define __GS_EXTRA_BUF_LEN__    (0)
+-#if __GS_NONSYNC_READ_EN__
+-#undef __GS_EXTRA_BUF_LEN__
+-#define __GS_EXTRA_BUF_LEN__    (__GS_READ_POINT_NUM__ + __GS_READ_POINT_NUM_JITTER__)
+-#endif
+-
+-#ifndef __GH3X2X_PROTOCOL_DATA_FUNCTION_INTERCEPT__
+-#define __GH3X2X_PROTOCOL_DATA_FUNCTION_INTERCEPT__   0
+-#endif
+-
+-#ifndef __FIFO_PACKAGE_SEND_ENABLE__
+-#define __FIFO_PACKAGE_SEND_ENABLE__   0
+-#endif
+-
+-#if __ADT_ONLY_PARTICULAR_WM_CONFIG__
+-#if __ADT_ONLY_PARTICULAR_WM_CONFIG__ < 4
+-#error __ADT_ONLY_PARTICULAR_WM_CONFIG__ must be zero or bigger than 3 !!!
+-#endif
+-#endif
+-
+-#ifdef GOODIX_DEMO_PLATFORM
+-#include "Goodix_Platform_config.h"
+-#endif
+-
+-#if (__SUPPORT_ALGO_INPUT_OUTPUT_DATA_LOG__)
+-#include "stm32f4xx_hal.h"
+-#include <time.h>
+-#endif
+-
+-#endif /* _GH_DEMO_CONFIG_H_ */
+-
+-/********END OF FILE********* Copyright (c) 2003 - 2022, Goodix Co., Ltd. ********/
++/**
++ * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
++ *
++ * @file    gh_demo_config.h
++ *
++ * @brief   gh3x2x driver lib demo configuration file
++ *
++ * @author  Gooidx Iot Team
++ *
++ */
++#ifndef _GH_DEMO_CONFIG_H_
++#define _GH_DEMO_CONFIG_H_
++#include "gh_drv.h"
++#include "stdio.h"
++
++
++/* bsp config */
++/**< interface config __GH3X2X_INTERFACE_I2C__ /__GH3X2X_INTERFACE_SPI__ */
++#define __GH3X2X_INTERFACE__                            (__GH3X2X_INTERFACE_SPI__)
++#if(__GH3X2X_INTERFACE__ == __GH3X2X_INTERFACE_SPI__)
++#define __GH3X2X_SPI_TYPE__                             (__GH3X2X_SPI_TYPE_SOFTWARE_CS__)
++#endif
++#if(__GH3X2X_INTERFACE__ == __GH3X2X_INTERFACE_I2C__)
++#define __GH3X2X_I2C_DEVICE_ID__                        (GH3X2X_I2C_ID_SEL_1L0L)
++#endif
++#define __GS_SENSITIVITY_CONFIG__                       (GSENSOR_SENSITIVITY_512_COUNTS_PER_G)  /**< gsensor sensitivity config */
++#define __GS_GYRO_ENABLE__                              (0)        /*Gyro enable*/
++#define __GS_NONSYNC_READ_EN__                          (0)
++#if __GS_NONSYNC_READ_EN__
++#define __GS_SAMPLE_RATE_HZ__                           (25)        /*gsenor sample rate(Hz)*/
++#define __GS_READ_POINT_NUM__                           (6)         /* host read gsensor sample num in one time */
++#define __GS_READ_POINT_NUM_JITTER__                    (3)         /* host read gsensor sample num jitter */
++#endif
++
++#define __CAP_ENABLE__                                  (0)         /*Cap enable*/
++#define __TEMP_ENABLE__                                 (0)         /*Temperature sensor enable*/
++
++#define __SUPPORT_HARD_RESET_CONFIG__                   (1)         /**< support hard reset config */
++#define __INTERRUPT_PROCESS_MODE__                      (__NORMAL_INT_PROCESS_MODE__)  /**< 2:polling+int 1:use polling 0:use interrupt */
++#define __PLATFORM_WITHOUT_OS__                         (1)         /**< 1:not use os  0:use os */
++#define __PASS_THROUGH_MODE__                           (0)
++#define __GH3X2X_MP_MODE__                              (0)         /**< 1:enable mp mode  0:unable mp mode */
++#define __GH3X2X_CASCADE_EN__                           (0)         /** dual-ecg function enable **/
++#if (__GH3X2X_CASCADE_EN__ && __GH3X2X_INTERFACE_I2C__)
++#define __GH3X2X_I2C_DEVICE_SLAVER_ID__                 (GH3X2X_I2C_ID_SEL_1H0L)
++#endif
++#define __GH3X2X_ECG_RTYPE_5M__                         (0)
++#define __RESET_AGCINFO_BEFORE_SAMPLE__                 (0)
++#define __CURRENT_ECODE_CALIBRATE__                     (0)
++
++/* app config */
++#define __USER_DYNAMIC_DRV_BUF_EN__                     (0)        /*get rawdata buf via malloc*/
++#define __DRIVER_LIB_MODE__                             (__DRV_LIB_WITH_ALGO__)
++#define __DRIVER_OPEN_ALL_SOURCE__                      (0)  //0: do not open all driver source(this mode can support goodix algorithm)   1: open all driver source (this mode may can NOT support goodix algorithm) 
++#define __FUNC_RUN_SIMULTANEOUSLY_SUPPORT__             (1)
++#define __GH_MSG_WITH_ALGO_LAYER_EN__                   (0)        /** enable message with algorithm send/recive process **/
++
++/* ppg function type */
++#define __FUNC_TYPE_HR_ENABLE__                         (1)    /**< hb function tye */
++#define __FUNC_TYPE_HRV_ENABLE__                        (1)    /**< hrv function tye */
++#define __FUNC_TYPE_HSM_ENABLE__                        (0)    /**< hsm function tye */
++#define __FUNC_TYPE_SPO2_ENABLE__                       (1)    /**< spo2 function tye */
++#define __FUNC_TYPE_BT_ENABLE__                         (0)    /**< bt function tye */
++#define __FUNC_TYPE_RESP_ENABLE__                       (0)    /**< resp function tye */
++#define __FUNC_TYPE_AF_ENABLE__                         (0)    /**< af function tye */
++#define __FUNC_TYPE_TEST_ENABLE__                       (0)    /**< test function tye */
++#define __SUPPORT_HARD_ADT_CONFIG__                     (1)    /**< support hard adt config */
++#define __FUNC_TYPE_SOFT_ADT_ENABLE__                   (1)    /**< support soft adt config */
++#define __SUPPORT_SOFT_AGC_CONFIG__                     (1)    /**< support soft agc config */
++
++#define __HARD_ADT_ALGO_CHECK_EN__                      (0)   //0: do not use algo to replace hard adt module in chip  1: use algo to replace hard adt mudule in chip
++#define __ADT_ONLY_PARTICULAR_WM_CONFIG__               (0)  //0: Do not set particular watermark at openning function is ADT only  N (N>3&&N<800): set particular watermark, and this value is N at openning function is ADT only
++
++/* ecg function type */
++#define __FUNC_TYPE_ECG_ENABLE__                        (0)    /**< ecg algorithm tye */
++#if __FUNC_TYPE_ECG_ENABLE__
++#define __FUNC_TYPE_PWTT_ENABLE__                       (1)    /**< pwtt algorithm tye */
++#define __FUNC_TYPE_BP_ENABLE__                         (1)    /**< bp algorithm tye */
++#define __SUPPORT_ECG_LEAD_OFF_DET_800HZ__              (1)    
++#define GH3X2X_ECG_DOWNSAMP_CHNL_NUM                    (1)    /**< ECG downsample chn number */
++
++#if ( __FUNC_TYPE_HR_ENABLE__)
++#define __SUPPORT_PPG_DOWNSAMP__                        (0)    /**< PPG downsample algorithm tye */
++#define GH3X2X_PPG_DOWNSAMP_CHNL_NUM                    (0)    /**< PPG downsample chn number */
++#endif
++#endif
++
++/*lead off parameters setting*/
++#define LEADOFF_DET_IQ_AMP_THR_uV                       (1500)
++#define LEADOFF_DET_IQ_AMP_DIFF_THR_uV                  (1000)
++#define LEADOFF_DET_IQ_VAL_THR_mV                       (80)
++
++/* config about mult-sensor event process*/
++#define __GH_MULTI_SENSOR_EVENT_PRO_CONIG__             (1)        /**0: no support multi-sensor event process  1: support multi-sensor event process*/
++#define __GH_MULTI_SENSOR_TIMER_PERIOD_MS__             (1000)     /** period of multi-sensor timer, unit: ms*/
++#define __GH_MULTI_SENSOR_WEAR_EXAMPLE_EN__             (0)        /** this is example for using multi-senosr process to check wear on, you can set 1 to enable this example process*/
++
++/* config about g-sensor move detection */
++#define __GSENSOE_MOVE_DETECT_SUPPORT__                 (1)         /**0: no NOT support move detection 1: support move detection*/
++#define __GSENSOR_MOVE_THRESHOLD__                      (65)        /**< DIFF of sqrt(x^2+y^2+z^2) */
++#define __GSENSOR_MOVE_CNT_THRESHOLD__                  (1)         /**< (recomended value = 1) more than how many times of movement can be judged as effective moveing*/
++#define __GSENSOR_NOT_MOVE_CNT_THRESHOLD__              (150)       /**< (recommended value = 1.5 * sample rate of g-sensor ) more than how many times of movement can be judged as effective non-moveing*/    
++#define __GSENSOR_MOVE_TIME_OUT_THRESHOLD_MS__          (5000)      /**range 1~5000, the time of not move > __GSENSOR_MOVE_TIME_OUT_THRESHOLD_MS__, event : GH3X2X_MULTI_SENSOR_EVENT_GS_MOVE_TIME_OUT will be generated*/
++
++/*sofe agc config*/
++#if __SUPPORT_SOFT_AGC_CONFIG__
++#define GH3X2X_NEW_AGC_SLOT_NUM_LIMIT                   (8u)
++#define GH3X2X_NEW_AGC_SUB_CHNL_NUM_LIMIT               (16u)
++#endif
++
++/* marco of divide zero flag enable*/
++#define   GH3X2X_DIVIDE_ZERO_FLAG_UPLODE_EN             (1)
++
++/* marco of wake up confirm enable*/
++#define   GH3X2X_WAKE_UP_CONFIRM_EN                     (1)
++
++/*sample config*/
++#define __SLOT_SEQUENCE_DYNAMIC_ADJUST_EN__             (1)
++
++/*debug config*/
++#define __SUPPORT_PROTOCOL_ANALYZE__                    (1)         /**< driver lib support protocol analyze */
++#if (__SUPPORT_PROTOCOL_ANALYZE__)
++#define __UPLOAD_ALGO_RESULT__                          (1)         /**< upload algorithm result or not */
++#define __PROTOCOL_SERIAL_TYPE__                        (__PROTOCOL_SERIAL_USE_BLE__)  /**< protocol communicate serial port type */
++#define __SUPPORT_ZIP_PROTOCOL__                        (1)
++#define __FIFO_PACKAGE_SEND_ENABLE__                    (0)         /** 1: fifo package send mode enable  0: cannot open fifo package send mode */
++#define __GH3X2X_PROTOCOL_SEND_TIMER_PERIOD__           (40)        /** (unit : ms ) protocal data send timer period */
++#define __GH3X2X_PROTOCOL_DATA_FIFO_LEN__               (64)        /** protocal data send fifo length **/
++#define __GH3X2X_PROTOCOL_EVENT_FIFO_LEN__              (16)        /** protocal event send fifo length **/
++#define __GH3X2X_PROTOCOL_EVENT_WAITING_ACK_TIME__      (500)       /** (unit : ms ) protocal data waiting ack time, if time out, we will resend */
++#define __GH3X2X_PROTOCOL_EVENT_RESEND_NUM__            (255)       /***** 0~255  protocal resend num (255: evenlasting resending) */
++#define __GH3X2X_PROTOCOL_DATA_FUNCTION_INTERCEPT__     (GH3X2X_NO_FUNCTION) /* GH3X2X_NO_FUNCTION: none function date will be intercepted     (GH3X2X_FUNCTION_HR|GH3X2X_FUNCTION_HRV):  HR and HRV function data will be intercepted, those data will not output via protocal */
++#endif
++#define __SUPPORT_SAMPLE_DEBUG_MODE__                   (0)         /**< use sample debug mode */
++#define __SUPPORT_ELECTRODE_WEAR_STATUS_DUMP__          (1)         /** use electrode wear status dump */
++#define __GH3X2X_INFO_LOG_TYPE__                        (__GH3X2X_INFO_LOG_METHOD_0__) /**< example log config */
++#define __GH3X2X_INFO_LOG_LEVEL__                       (__GH3X2X_INFO_LOG_LV_1__ | __GH3X2X_INFO_LOG_LV_4__) /**< example log config */
++#define   GH3X2X_INFO_LOG_MAX_LEN                       (180)
++#define   GH3X2X_IODATA_LOG_MAX_LEN                     (512)
++#define __SUPPORT_ENGINEERING_MODE__                    (0)         /**< enginerring mode*/
++#define __GH3X2X_MEM_POOL_CHECK_EN__                    (0)         /** 1: drv lib checks algo mem pool befor every time of algo calculating   0: do not check  **/
++
++/* operate config */
++#define __SUPPORT_FUNCTION_SAMPLE_RATE_MODIFY__         (0)         /** 0: only use default sample rate in array cfg  1: modifying function sample rate is supported via API: Gh3x2xDemoFunctionSampleRateSet */
++
++/*config list*/
++#define __GH3X2X_CFG_LIST_MAX_NUM__                     (8)         /**< max num of config list(1 ~ 8) */
++
++/* other config */
++#define __SUPPORT_HOOK_FUNC_CONFIG__                    (1)         /**< support hook func config */
++#define __SUPPORT_ALGO_INPUT_OUTPUT_DATA_HOOK_CONFIG__  (1)         /**< enable it ,we can get algo input and output data **/
++#define __SUPPORT_ALGO_INPUT_OUTPUT_DATA_LOG__          (0)         /**< enable it ,can print algo input and output data **/
++
++/* gh3x2x data buffer size config,this is related to gh3x2x fifo water mark config */
++#define __GH3X2X_RAWDATA_BUFFER_SIZE__                  (800 * 4)     /**< rawdata buffer size in byte */
++#define __GH3X2X_RAWDATA_SLAVE_BUFFER_SIZE__            (200 * 4)     /**< rawdata buffer size in byte for slave chip*/
++
++/* gsensor data buffer size config,every g sensor data has 6 bytes(x,y,z) */
++#define __GSENSOR_DATA_BUFFER_SIZE__                    (300)       /**< max num of gsensor data */
++
++#define __CAP_DATA_BUFFER_SIZE__                        (200)       /**< max num of CAP data */
++#define __TEMP_DATA_BUFFER_SIZE__                       (200)       /**< max num of TEMP data */
++
++/* function channel nunber config*/
++#define   GH3X2X_ADT_CHNL_NUM                           (8)        /**< ADT function channel num */
++#define   GH3X2X_HR_CHNL_NUM                            (8)        /**< HR function channel num */
++#define   GH3X2X_HRV_CHNL_NUM                           (8)        /**< HRV function channel num */
++#define   GH3X2X_HSM_CHNL_NUM                           (1)        /**< HSM function channel num */
++#define   GH3X2X_BP_CHNL_NUM                            (1)        /**< BP function channel num */
++#define   GH3X2X_PWA_CHNL_NUM                           (1)        /**< PWA function channel num */
++#define   GH3X2X_SPO2_CHNL_NUM                          (8)        /**< SPO2 function channel num */
++#define   GH3X2X_ECG_CHNL_NUM                           (1)        /**< ECG function channel num */
++#define   GH3X2X_PWTT_CHNL_NUM                          (1)        /**< PWTT function channel num */
++#define   GH3X2X_SOFT_ADT_CHNL_NUM                      (8)        /**< soft adt function channel num */
++#define   GH3X2X_BT_CHNL_NUM                            (1)        /**< BT function channel num */
++#define   GH3X2X_RESP_CHNL_NUM                          (1)        /**< RESP function channel num */
++#define   GH3X2X_AF_CHNL_NUM                            (1)        /**< AF function channel num */
++#define   GH3X2X_TEST_CHNL_NUM                          (1)        /**< TEST1 function channel num */
++
++/*fifo monitor*/
++#define GH3X2X_FIFO_MONITOR_EN                          (1)
++#define GH3X2X_FIFO_MONITOR_DECIMATION_SUPPORT          (0)
++
++#define GH3X2X_SEND_MSG_ALGO_CFG_INIT(g_pstGh3x2xFrameInfo, g_uchGh3x2xRegCfgArrIndex)         //add your code to send message to algorithm layer
++#define GH3X2X_SEND_MSG_ALGO_START(unFuncMode)  //add your code to send message to algorithm layer
++#define GH3X2X_SEND_MSG_ALGO_STOP(unFuncMode)   //add your code to send message to algorithm layer
++#define GH3X2X_SEND_MSG_ALGO_CAL(unFunctionID)              //add your code to send message to algorithm layer
++#define GH3X2X_PRO_MSG_SOFT_WEAR_EVEVT()        // if got soft wear event, GH3X2X_SetSoftEvent(GH3X2X_SOFT_EVENT_WEAR_OFF/GH3X2X_SOFT_EVENT_WEAR_ON)
++
++/***********************************  DO NOT MODIFY FOLLOWING CODE *******************************/
++/* log def*/
++#if (__GH3X2X_INFO_LOG_LEVEL__ > __GH3X2X_INFO_LOG_LV_0__)
++#if (__GH3X2X_INFO_LOG_LEVEL__ & __GH3X2X_INFO_LOG_LV_1__)
++#define   GH3X2X_INFO_LOG(...)              do{\
++                                            if(g_pSnprintfUserIn)\
++                                            {\
++                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_INFO_LOG_MAX_LEN] = {0};\
++                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_INFO_LOG_MAX_LEN, "[LOG_I] " __VA_ARGS__);\
++                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
++                                            }\
++                                            if(g_pPrintfUserIn)g_pPrintfUserIn("[LOG_I] " __VA_ARGS__);\
++                                        } while(0)
++#else
++#define   GH3X2X_INFO_LOG(...)
++#endif
++
++#if (__GH3X2X_INFO_LOG_LEVEL__ & __GH3X2X_INFO_LOG_LV_2__)
++#define   GH3X2X_DEBUG_LOG(...)              do{\
++                                            if(g_pSnprintfUserIn)\
++                                            {\
++                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_INFO_LOG_MAX_LEN] = {0};\
++                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_INFO_LOG_MAX_LEN, "[LOG_D] " __VA_ARGS__);\
++                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
++                                            }\
++                                            if(g_pPrintfUserIn)g_pPrintfUserIn("[LOG_D] " __VA_ARGS__);\
++                                        } while(0)
++#else
++#define   GH3X2X_DEBUG_LOG(...)	
++#endif
++
++#if (__GH3X2X_INFO_LOG_LEVEL__ & __GH3X2X_INFO_LOG_LV_3__)
++#define   GH3X2X_WARNING_LOG(...)              do{\
++                                            if(g_pSnprintfUserIn)\
++                                            {\
++                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_INFO_LOG_MAX_LEN] = {0};\
++                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_INFO_LOG_MAX_LEN, "[LOG_W] " __VA_ARGS__);\
++                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
++                                            }\
++                                            if(g_pPrintfUserIn)g_pPrintfUserIn("[LOG_W] " __VA_ARGS__);\
++                                        } while(0)
++#else
++#define   GH3X2X_WARNING_LOG(...)	
++#endif
++
++#if (__GH3X2X_INFO_LOG_LEVEL__ & __GH3X2X_INFO_LOG_LV_4__)
++#define   GH3X2X_ERROR_LOG(...)              do{\
++                                            if(g_pSnprintfUserIn)\
++                                            {\
++                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_INFO_LOG_MAX_LEN] = {0};\
++                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_INFO_LOG_MAX_LEN,"[LOG_E] "  __VA_ARGS__);\
++                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
++                                            }\
++                                            if(g_pPrintfUserIn)g_pPrintfUserIn("[LOG_E] "  __VA_ARGS__);\
++                                        } while(0)
++#else
++#define   GH3X2X_ERROR_LOG(...)	
++#endif
++
++#else
++#define   GH3X2X_INFO_LOG(...)
++#define   GH3X2X_ERROR_LOG(...)
++#define   GH3X2X_DEBUG_LOG(...)
++#define   GH3X2X_WARNING_LOG(...)
++#endif
++
++#if (__SUPPORT_ALGO_INPUT_OUTPUT_DATA_LOG__)
++#define   GH3X2X_IODATA_LOG(...)            do{\
++                                            if(g_pSnprintfUserIn)\
++                                            {\
++                                                char gh3x2x_GH3X2X_INFO_LOG[GH3X2X_IODATA_LOG_MAX_LEN] = {0};\
++                                                g_pSnprintfUserIn(gh3x2x_GH3X2X_INFO_LOG, GH3X2X_IODATA_LOG_MAX_LEN,__VA_ARGS__);\
++                                                GH3X2X_PlatformLog((GCHAR *)gh3x2x_GH3X2X_INFO_LOG);\
++                                            }\
++                                            if(g_pPrintfUserIn)g_pPrintfUserIn(__VA_ARGS__);\
++                                        } while(0)
++
++#else
++#define   GH3X2X_IODATA_LOG(...)
++#endif
++
++#if (__DRIVER_LIB_MODE__ == __DRV_LIB_WITH_ALGO__)
++#define __GH3X2X_MEM_POOL_CHECK_EN__ (0)
++#endif
++
++#ifndef __FUNC_TYPE_SOFT_ADT_ENABLE__
++#define __FUNC_TYPE_SOFT_ADT_ENABLE__  (0)
++#endif
++
++#if __FUNC_TYPE_ECG_ENABLE__ == 0
++#define __FUNC_TYPE_PWTT_ENABLE__           (0)    /**< pwtt algorithm tye */
++#define __FUNC_TYPE_BP_ENABLE__             (0)    /**< bp algorithm tye */
++#define __SUPPORT_ECG_LEAD_OFF_DET_800HZ__  (0)
++#endif
++
++#if(__GH3X2X_INTERFACE__ != __GH3X2X_INTERFACE_SPI__)
++#define __GH3X2X_SPI_TYPE__                 (__GH3X2X_SPI_TYPE_SOFTWARE_CS__)              
++#endif
++#if(__GH3X2X_INTERFACE__ != __GH3X2X_INTERFACE_I2C__)
++#define __GH3X2X_I2C_DEVICE_ID__            (GH3X2X_I2C_ID_SEL_1L0L)
++#endif
++
++#ifdef GH3X2X_MAIN_FUNC_CHNL_NUM
++#undef GH3X2X_MAIN_FUNC_CHNL_NUM
++#endif
++#define GH3X2X_MAIN_FUNC_CHNL_NUM 1
++#if __SUPPORT_HARD_ADT_CONFIG__
++#if GH3X2X_ADT_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
++#undef GH3X2X_MAIN_FUNC_CHNL_NUM
++#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_ADT_CHNL_NUM
++#endif
++#endif
++#if __FUNC_TYPE_HR_ENABLE__
++#if GH3X2X_HR_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
++#undef GH3X2X_MAIN_FUNC_CHNL_NUM
++#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_HR_CHNL_NUM
++#endif
++#endif
++#if __FUNC_TYPE_HRV_ENABLE__
++#if GH3X2X_HRV_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
++#undef GH3X2X_MAIN_FUNC_CHNL_NUM
++#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_HRV_CHNL_NUM
++#endif
++#endif
++#if __FUNC_TYPE_SPO2_ENABLE__
++#if GH3X2X_SPO2_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
++#undef GH3X2X_MAIN_FUNC_CHNL_NUM
++#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_SPO2_CHNL_NUM
++#endif
++#endif
++#if __FUNC_TYPE_ECG_ENABLE__
++#if GH3X2X_ECG_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
++#undef GH3X2X_MAIN_FUNC_CHNL_NUM
++#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_ECG_CHNL_NUM
++#endif
++#endif
++#if __FUNC_TYPE_TEST_ENABLE__
++#if GH3X2X_TEST_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
++#undef GH3X2X_MAIN_FUNC_CHNL_NUM
++#define GH3X2X_MAIN_FUNC_CHNL_NUM GH3X2X_TEST_CHNL_NUM
++#endif
++#endif
++
++#ifdef GH3X2X_FUNC_CHNL_NUM_MAX
++#undef GH3X2X_FUNC_CHNL_NUM_MAX
++#endif
++#define GH3X2X_FUNC_CHNL_NUM_MAX GH3X2X_MAIN_FUNC_CHNL_NUM
++#if __FUNC_TYPE_SOFT_ADT_ENABLE__
++#if GH3X2X_SOFT_ADT_CHNL_NUM > GH3X2X_MAIN_FUNC_CHNL_NUM
++#undef GH3X2X_FUNC_CHNL_NUM_MAX
++#define GH3X2X_FUNC_CHNL_NUM_MAX GH3X2X_SOFT_ADT_CHNL_NUM
++#endif
++#endif
++
++#define __GS_EXTRA_BUF_LEN__    (0)
++#if __GS_NONSYNC_READ_EN__
++#undef __GS_EXTRA_BUF_LEN__
++#define __GS_EXTRA_BUF_LEN__    (__GS_READ_POINT_NUM__ + __GS_READ_POINT_NUM_JITTER__)
++#endif
++
++#ifndef __GH3X2X_PROTOCOL_DATA_FUNCTION_INTERCEPT__
++#define __GH3X2X_PROTOCOL_DATA_FUNCTION_INTERCEPT__   0
++#endif
++
++#ifndef __FIFO_PACKAGE_SEND_ENABLE__
++#define __FIFO_PACKAGE_SEND_ENABLE__   0
++#endif
++
++#if __ADT_ONLY_PARTICULAR_WM_CONFIG__
++#if __ADT_ONLY_PARTICULAR_WM_CONFIG__ < 4
++#error __ADT_ONLY_PARTICULAR_WM_CONFIG__ must be zero or bigger than 3 !!!
++#endif
++#endif
++
++#ifdef GOODIX_DEMO_PLATFORM
++#include "Goodix_Platform_config.h"
++#endif
++
++#if (__SUPPORT_ALGO_INPUT_OUTPUT_DATA_LOG__)
++#include <time.h>
++#endif
++
++#endif /* _GH_DEMO_CONFIG_H_ */
++
++/********END OF FILE********* Copyright (c) 2003 - 2022, Goodix Co., Ltd. ********/
+diff --color -ruN a/demo_kernel_code/kernel/gh_demo_inner.h b/demo_kernel_code/kernel/gh_demo_inner.h
+--- a/demo_kernel_code/kernel/gh_demo_inner.h	2025-06-11 17:39:31
++++ b/demo_kernel_code/kernel/gh_demo_inner.h	2026-09-18 18:38:57
+@@ -1,585 +1,587 @@
+-/**
+- * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
+- *
+- * @file    gh_demo_inner.h
+- *
+- * @brief   gh3x2x driver lib demo inner header file
+- *
+- * @author  Gooidx Iot Team
+- *
+- */
+-
+-#ifndef _GH_DEMO_INNER_H_
+-#define _GH_DEMO_INNER_H_
+-#include "gh_demo_config.h"
+-#include "gh_drv_control.h"
+-
+-
+-#ifdef GOODIX_DEMO_PLATFORM
+-#include "gh3x2x_demo_goodix_platform.h"
+-#else
+-#define GOODIX_PLATFORM_SAMPLING_START_HOOK_ENTITY()
+-#define GOODIX_PLATFORM_SAMPLING_STOP_HOOK_ENTITY()
+-#define GOODIX_PLATFORM_SPI_WRITE_ENTITY(write_buffer, length)
+-#define GOODIX_PLATFORM_PROTOCOL_ANALYZE()
+-#define GOODIX_PLATFORM_REPORT_EVRENT_ENTITY()
+-#define GOODIX_PLATFORM_SPI_READ_ENTITY(read_buffer, length)
+-#define GOODIX_PLATFORM_SPI_CS_CTRL_ENTITY(cs_pin_level)
+-#define GOODIX_PLATFORM_SPI_RESET_PIN_ENTITY(pin_level)
+-#define GOODIX_PLATFORM_INT_HANDLER_CALL_BACK_ENTITY()
+-#define GOODIX_PLATFORM_INT_GS_START_CACHE_ENTITY()
+-#define GOODIX_PLATFORM_INT_GS_STOP_CACHE_ENTITY()
+-#define GOODIX_PLATFORM_INT_GET_GS_DATA_ENTITY(gsensor_buffer, gsensor_buffer_index)
+-#define GOODIX_PLATFORM_LOG_ENTITY(log_string)
+-#define GOODIX_PLATFORM_DELAY_US_ENTITY(usUsec)
+-#define GOODIX_PLATFORM_DELAY_MS_ENTITY(usMsec)
+-#define GOODIX_PLATFORM_SERIAL_SEND_ENTITY(uchTxDataBuf, usBufLen)
+-#define GOODIX_PLATFORM_INT_INIT_ENTITY()
+-#define GOODIX_PLATFORM_RESET_PIN_INIT_ENTITY()
+-#define GOODIX_PLATFORM_SPI_INIT_ENTITY()
+-#define GOODIX_PLATFORM_CREAT_ADT_CONFIRM_ENTITY(unPeriodMs)
+-#define GOODIX_PLATFORM_START_TIMER_ENTITY()
+-#define GOODIX_PLATFORM_STOP_TIMER_ENTITY()
+-#define GOODIX_PLATFORM_DEL_TIMER_ENTITY()
+-#define GOODIX_PLATFORM_WEAR_ON_EVENT()
+-#define GOODIX_PLATFORM_WEAR_OFF_EVENT()
+-#define GOODIX_PLATFORM_NONLIVING_WEAR_OFF_EVENT()
+-#define GOODIX_PLATFORM_LEAD_ON_EVENT()
+-#define GOODIX_PLATFORM_LEAD_OFF_EVENT()
+-#define GOODIX_PLATFORM_HR_RESULT_REPORT_ENTITY()
+-#define GOODIX_PLATFORM_SPO2_RESULT_REPORT_ENTITY()
+-#define GOODIX_PLATFORM_SERIAL_TIMER_STOP_ENTITY()
+-#define GOODIX_PLATFORM_SERIAL_TIMER_START_ENTITY()
+-#define GOODIX_PLATFORM_I2C_WRITE_ENTITY(device_id, write_buffer,length)
+-#define GOODIX_PLATFORM_I2C_INIT_ENTITY()
+-#define GOODIX_PLATFORM_I2C_READ_ENTITY(device_id, write_buffer, write_length, read_buffer, read_length)
+-#define GOODIX_PLATFORM_INT_CAP_START_CACHE_ENTITY()
+-#define GOODIX_PLATFORM_INT_CAP_STOP_CACHE_ENTITY()
+-#define GOODIX_PLATFORM_INT_GET_CAP_DATA_ENTITY(cap_data_buffer, cap_buffer_index)
+-#define GOODIX_PLATFORM_INT_TEMP_START_CACHE_ENTITY()
+-#define GOODIX_PLATFORM_INT_TEMP_STOP_CACHE_ENTITY()
+-#define GOODIX_PLATFORM_INT_GET_TEMP_DATA_ENTITY(temp_data_buffer,temp_buffer_index)
+-#define GOODIX_PLATFORM_WRITE_CAP_TO_FLASH_ENTITY(WearCap1, UnwearCap1, WearCap2, UnwearCap2)
+-#define GOODIX_PLATFORM_READ_CAP_FROM_FLASH_ENTITY(WearCap1, UnwearCap1, WearCap2, UnwearCap2)
+-#define GOODIX_PLATFORM_BEFORE_WAKE_UP_HOOK_ENTITY()
+-#define GOODIX_PLATFORM_WAKE_UP_HOOK_ENTITY()
+-#define GOODIX_PLATFORM_PT_CONFIG_HOOK_ENTITY()
+-#define GOODIX_PLATFORM_START_WITH_CONFIRM_HOOK_ENTITY()
+-#define GOODIX_PLATFORM_PRESSURE_PARAS_READ_ENTITY(buffer)
+-#define GOODIX_PLATFORM_PRESSURE_PARAS_WRITE_ENTITY(buffer)
+-#define GOODIX_PLATFORM_PRINTF_ENTITY()
+-#define GOODIX_PLATFORM_MALLOC_USER_ENTITY(unMemSize)
+-#define GOODIX_PLATFORM_FREE_USER_ENTITY(MemAddr)
+-#define GOODIX_PLATFORM_NADT_RESULT_HANDLE_ENTITY()
+-#define GOODIX_PLATFORM_GOODIX_ALGO_CALL_ENTITY()
+-#define GOODIX_PLATFORM_INT_DIVIDE_ZERO_ENABLE_ENTITY()
+-#endif
+-
+-#define __PROTOCOL_DATA_LEN__       235
+-
+-#if defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
+-  #ifndef __packed
+-    #define __packed __attribute__((__packed__))
+-  #endif /* __packed */
+-#endif /* __GNUC__ */
+-
+-typedef struct
+-{
+-    GS16 sXAxisVal; // X-Axis Value
+-    GS16 sYAxisVal; // Y-Axis Value
+-    GS16 sZAxisVal; // Z-Axis Value
+-#if __GS_GYRO_ENABLE__
+-    GS16 sXGyroVal;
+-    GS16 sYGyroVal;
+-    GS16 sZGyroVal;
+-#endif
+-}STGsensorRawdata;
+-
+-#if __GH3X2X_MEM_POOL_CHECK_EN__
+-extern GU8  g_uchGh3x2xMemPollHaveGetCheckSum;
+-#endif
+-extern GU8 g_uchDemoWorkMode;
+-#if (__NORMAL_INT_PROCESS_MODE__ == __INTERRUPT_PROCESS_MODE__ || __MIX_INT_PROCESS_MODE__ == __INTERRUPT_PROCESS_MODE__)
+-//hal_gh3x2x_int_handler_call_back is called, this value is 1
+-extern GU8 g_uchGh3x2xIntCallBackIsCalled; 
+-#endif
+-/// save function opened of driver lib
+-extern GU32 g_unDemoFuncMode;
+-/* config list array */
+-extern const STGh3x2xInitConfig g_stGh3x2xCfgListArr[];
+-
+-
+-extern STGh3x2xFifoMonitorInfo g_stFifoMonitorInfo;
+-
+-/* i2c interface */
+-/**
+- * @fn     void hal_gh3x2x_i2c_init(void)
+- * 
+- * @brief  hal i2c init for gh3x2x
+- *
+- * @attention   None
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void hal_gh3x2x_i2c_init(void);
+-
+-/**
+- * @fn     uint8_t hal_gh3x2x_i2c_write(uint8_t device_id, const uint8_t write_buffer[], uint16_t length)
+- * 
+- * @brief  hal i2c write for gh3x2x
+- *
+- * @attention   device_id is 8bits, if platform i2c use 7bits addr, should use (device_id >> 1)
+- *
+- * @param[in]   device_id       device addr
+- * @param[in]   write_buffer    write data buffer
+- * @param[in]   length          write data len
+- * @param[out]  None
+- *
+- * @return  status
+- * @retval  #1      return successfully
+- * @retval  #0      return error
+- */
+-GU8 hal_gh3x2x_i2c_write(GU8 device_id, const GU8 write_buffer[], GU16 length);
+-
+-/**
+- * @fn     uint8_t hal_gh3x2x_i2c_read(uint8_t device_id, const uint8_t write_buffer[], uint16_t write_length,
+- *                            uint8_t read_buffer[], uint16_t read_length)
+- * 
+- * @brief  hal i2c read for gh3x2x
+- *
+- * @attention   device_id is 8bits, if platform i2c use 7bits addr, should use (device_id >> 1)
+- *
+- * @param[in]   device_id       device addr
+- * @param[in]   write_buffer    write data buffer
+- * @param[in]   write_length    write data len
+- * @param[in]   read_length     read data len
+- * @param[out]  read_buffer     pointer to read buffer
+- *
+- * @return  status
+- * @retval  #1      return successfully
+- * @retval  #0      return error
+- */
+-GU8 hal_gh3x2x_i2c_read(GU8 device_id, const GU8 write_buffer[], GU16 write_length, GU8 read_buffer[], GU16 read_length);                       
+-
+-/* spi interface */
+-/**
+- * @fn     void hal_gh3x2x_spi_init(void)
+- * 
+- * @brief  hal spi init for gh3x2x
+- *
+- * @attention   None
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void hal_gh3x2x_spi_init(void);
+-
+-/**
+- * @fn     GU8 hal_gh3x2x_spi_write(GU8 write_buffer[], GU16 length)
+- * 
+- * @brief  hal spi write for gh3x2x
+- *
+- * @attention   None
+- *
+- * @param[in]   write_buffer    write data buffer
+- * @param[in]   length          write data len
+- * @param[out]  None
+- *
+- * @return  status
+- * @retval  #1      return successfully
+- * @retval  #0      return error
+- */
+-extern GU8 hal_gh3x2x_spi_write(GU8 write_buffer[], GU16 length);
+-
+-/**
+- * @fn     GU8 hal_gh3x2x_spi_read(GU8 read_buffer[], GU16 length)
+- * 
+- * @brief  hal spi read for gh3x2x
+- *
+- * @attention   None
+- *
+- * @param[in]   read_length     read data len
+- * @param[out]  read_buffer     pointer to read buffer
+- *
+- * @return  status
+- * @retval  #1      return successfully
+- * @retval  #0      return error
+- */
+-extern GU8 hal_gh3x2x_spi_read(GU8 read_buffer[], GU16 length);
+-
+-extern GU8 hal_gh3x2x_spi_write_F1_and_read(GU8 read_buf[], GU16 length);
+-
+-
+-/**
+- * @fn     void hal_gh3x2x_spi_cs_ctrl(GU8 cs_pin_level)
+- * 
+- * @brief  hal spi cs pin ctrl for gh3x2x
+- *
+- * @attention   pin level set 1 [high level] or 0 [low level]
+- *
+- * @param[in]   cs_pin_level     spi cs pin level
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void hal_gh3x2x_spi_cs_ctrl(GU8 cs_pin_level);
+-
+-/**
+- * @fn     void hal_gh3x2x_int_init(void)
+- * 
+- * @brief  gh3x2x int init
+- *
+- * @attention   None
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void hal_gh3x2x_reset_pin_init(void);
+-
+-/**
+- * @fn     void hal_gh3x2x_reset_pin_ctrl(GU8 pin_level)
+- * 
+- * @brief  hal reset pin ctrl for gh3x2x
+- *
+- * @attention   pin level set 1 [high level] or 0 [low level]
+- *
+- * @param[in]   pin_level     reset pin level
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void hal_gh3x2x_reset_pin_ctrl(GU8 pin_level);
+-
+-/**
+- * @fn     void hal_gh3x2x_int_init(void)
+- * 
+- * @brief  gh3x2x int init
+- *
+- * @attention   None
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void hal_gh3x2x_int_init(void);
+-
+-/**
+- * @fn     void hal_gsensor_start_cache_data(void)
+- * 
+- * @brief  Start cache gsensor data for gh3x2x
+- *
+- * @attention   This function will be called when start gh3x2x sampling.
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void hal_gsensor_start_cache_data(void);
+-
+-/**
+- * @fn     void hal_gsensor_stop_cache_data(void)
+- * 
+- * @brief  Stop cache gsensor data for gh3x2x
+- *
+- * @attention   This function will be called when stop gh3x2x sampling.
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void hal_gsensor_stop_cache_data(void);
+-extern void hal_cap_start_cache_data(void);
+-extern void hal_cap_stop_cache_data(void);
+-extern void hal_temp_start_cache_data(void);
+-extern void hal_temp_stop_cache_data(void);
+-/**
+- * @fn     void hal_gsensor_drv_get_fifo_data(STGsensorRawdata gsensor_buffer[], GU16 *gsensor_buffer_index)
+- * 
+- * @brief  get gsensor fifo data
+- *
+- * @attention   When read fifo data of GH3x2x,user should call this function to get gsensor data.And user must
+- *              assure that these gsensor data is corresponding to GH3x2x fifo data
+- *
+- * @param[in]   None
+- * @param[out]  gsensor_buffer          pointer to gsensor data buffer
+- * @param[out]  gsensor_buffer_index    pointer to number of gsensor data
+- *
+- * @return  None
+- */
+-extern void hal_gsensor_drv_get_fifo_data(STGsensorRawdata gsensor_buffer[], GU16 *gsensor_buffer_index);
+-extern void hal_cap_drv_get_fifo_data(STCapRawdata cap_data_buffer[], GU16 *cap_buffer_index);
+-extern void hal_temp_drv_get_fifo_data(STTempRawdata Temp_data_buffer[], GU16 *temp_buffer_index);
+-/**
+- * @fn     void GH3X2X_PlatformLog(char *log_string)
+- * 
+- * @brief  for debug version, log
+- *
+- * @attention   this function must define that use debug version lib
+- *
+- * @param[in]   log_string      pointer to log string
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void GH3X2X_PlatformLog(GCHAR *log_string);
+-extern void GH3X2X_RegisterPrintf(int (**pPrintfUser)(const char *format, ...));
+-
+-/**
+- * @fn     void Gh3x2x_BspDelayUs(GU16 usUsec)
+- * 
+- * @brief  Delay in us,user should register this function into driver lib
+- *
+- * @attention   None
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_BspDelayUs(GU16 usUsec);
+-
+-/**
+- * @fn     void Gh3x2x_BspDelayMs(GU16 usMsec)
+- * 
+- * @brief  Delay in ms
+- *
+- * @attention   None
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_BspDelayMs(GU16 usMsec);
+-
+-/**
+- * @fn     void Gh3x2x_LeadOnEventHook(void)
+- * 
+- * @brief  Lead on event hook
+- *
+- * @attention   None        
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_LeadOnEventHook(void);
+-
+-/**
+- * @fn     void Gh3x2x_LeadOffEventHook(void)
+- * 
+- * @brief  Lead off event hook
+- *
+- * @attention   None        
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_LeadOffEventHook(void);
+-/**
+- * @fn     void Gh3x2x_BeforeWakeUpHook(void)
+- * 
+- * @brief  Before WakeUp Hook
+- *
+- * @attention   None        
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_BeforeWakeUpHook(void);
+-
+-/**
+- * @fn     void Gh3x2x_WakeUpHook(void)
+- * 
+- * @brief  WakeUp Hook
+- *
+- * @attention   None        
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_WakeUpHook(void);
+-
+-/**
+- * @fn     void Gh3x2x_WearEventHook(GU16 usGotEvent, GU8 uchType)
+- * 
+- * @brief  Wear event hook
+- *
+- * @attention   None        
+- *
+- * @param[in]   wear event
+- * @param[in]   wear off type  0: no object  1: nonliving object
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_WearEventHook(GU16 usGotEvent, GU8 uchType);
+-#if (__GH3X2X_CASCADE_EN__)
+-extern void Gh3x2x_WearEventCascadeEcgHandle(GU16 usGotEvent);
+-#endif
+-
+-/**
+- * @fn     void Gh3x2x_UserHandleCurrentInfo(void)
+- * 
+- * @brief  handle gh3x2x chip current information for user
+- *
+- * @attention   None        
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-void Gh3x2x_UserHandleCurrentInfo(void);
+-
+-/**
+- * @fn     void Gh3x2xDemoAlgorithmCalculate(GU8* puchReadFifoBuffer, STGsensorRawdata *pstGsAxisValueArr, 
+- *                                              GU16 usGsDataNum, EMGsensorSensitivity emGsSensitivity)
+- *
+- * @brief  Algorithm calculate.This function will be called in Gh3x2xDemoInterruptProcess()
+- *
+- * @attention   None
+- *
+- * @param[in]   puchReadFifoBuffer      point to gh3x2x fifo data buffer
+- * @param[in]   pstGsAxisValueArr       point to gsensor data buffer
+- * @param[in]   usGsDataNum             gsensor data cnt
+- * @param[in]   emGsSensitivity         sensitivity of gsensor
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-
+-void Gh3x2xDemoFunctionProcess(GU8* puchReadFifoBuffer, GU16 usFifoBuffLen,STGsensorRawdata *pstGsAxisValueArr, GU16 usGsDataNum,
+-                                   STCapRawdata* pstCapValueArr,GU16 usCapDataNum,STTempRawdata* pstTempValueArr,GU16 usTempDataNum);
+-
+-/**
+- * @fn     void Gh3x2xDemoSamplingControl(EMUprotocolParseCmdType emSwitch)
+- *
+- * @brief  Start/stop sampling of gh3x2x and sensor
+- *
+- * @attention   None
+- *
+- * @param[in]   unFuncMode      function that will be started or stopped
+- * @param[in]   emSwitch        stop/start sampling
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2xDemoSamplingControl(GU32 unFuncMode, EMUprotocolParseCmdType emSwitch);
+-
+-/// dump mode
+-extern GU16 g_usDumpMode;
+-extern GU8 g_uchGh3x2xRegCfgArrIndex;
+-extern GU16 g_usCurrentConfigListFifoWmBak;
+-extern void GH3X2X_LedAgcProcessExDump(GU8* puchReadFifoBuffer);
+-extern void GH3X2X_ReadElectrodeWearDumpData(void);
+-extern void GH3X2X_RecordDumpData(void);
+-extern void gh3x2x_init_hook_func(void);
+-extern void gh3x2x_sampling_start_hook_func(void);
+-extern void gh3x2x_sampling_stop_hook_func(void);
+-extern void gh3x2x_get_rawdata_hook_func(GU8 *read_buffer_ptr, GU16 length);
+-extern void gh3x2x_algorithm_get_io_data_hook_func(const STGh3x2xFrameInfo * const pstFrameInfo);
+-extern void gh3x2x_frame_data_hook_func(const STGh3x2xFrameInfo * const pstFrameInfo);
+-extern void gh3x2x_reset_by_protocol_hook(void);
+-extern void gh3x2x_config_set_start_hook(void);
+-extern void gh3x2x_config_set_stop_hook(void);
+-extern void gh3x2x_write_algo_config_hook(GU16 usVirtualRegAddr, GU16 usVirtualRegValue);
+-
+-/**
+- * @fn     void Gh3x2xDemoReportEvent(GU16 usEvent,GU8 uchWearType)
+- *
+- * @brief  Report event to APP/EVK
+- *
+- * @attention   None
+- *
+- * @param[in]   usEvent      GH3x2x event
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2xDemoReportEvent(GU16 usEvent,GU8 uchWearType);
+-
+-/**
+- * @fn     void Gh3x2x_HalSerialSendData(GU8* uchTxDataBuf, GU16 usBufLen)
+- *
+- * @brief  Serial send data
+- *
+- * @attention   None
+- *
+- * @param[in]   uchTxDataBuf        pointer to data buffer to be transmitted
+- * @param[in]   usBufLen            data buffer length
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_HalSerialSendData(GU8* uchTxDataBuf, GU16 usBufLen);
+-
+-/**
+- * @fn     void Gh3x2x_StartAdtConfirmTimer(void)
+- * 
+- * @brief  Start time of adt confirm to get g sensor
+- *
+- * @attention   None        
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2xSerialSendTimerStop(void);
+-extern void Gh3x2xSerialSendTimerStart(void);
+-extern void Gh3x2x_StartMultiSensorTimer(void);
+-extern void Gh3x2xSerialSendTimerInit(GU8 uchPeriodMs);
+-/**
+- * @fn     void Gh3x2x_StopAdtConfirmTimer(void)
+- * 
+- * @brief  Stop time of adt confirm
+- *
+- * @attention   None        
+- *
+- * @param[in]   None
+- * @param[out]  None
+- *
+- * @return  None
+- */
+-extern void Gh3x2x_StopMultiSensorTimer(void);
+-extern void Gh3x2xDemoSendWearOrLeadStateToUI(GU8 state);
+-extern void Gh3x2x_HalSerialFifoInit(void);
+-extern void Gh3x2xMemPoolCheckSumWrite(GU8 *lunMemPool);
+-extern GU16 Gh3x2xMemPoolCheckSumCheck(GU8 *lunMemPool);
+-extern void Gh3x2xCheckMemPollBeforeAlgoCal(void);
+-extern void Gh3x2xUpdataMemPollChkSumAfterAlgoCal(void);
+-extern void GH3x2xMaserControlFunctionLog(GU32 unFuncMode, EMUprotocolParseCmdType emCmdType);
+-#if ( __FUNC_TYPE_BP_ENABLE__ && (__GH3X2X_INTERFACE__ == __GH3X2X_INTERFACE_I2C__))
+-extern GS8 gh3x2x_write_pressure_parameters(GS32 *buffer);
+-extern GS8 gh3x2x_read_pressure_parameters(GS32 *buffer);
+-#endif
+-extern void* Gh3x2xMallocUser(GU32 unMemSize);
+-extern void Gh3x2xFreeUser(void* MemAddr);
+-
+-extern void Gh3x2xDemoStopAlgoInner(GU32 unFuncMode);
+-extern void Gh3x2xDemoStartAlgoInner(GU32 unFuncMode);
+-
+-extern void Gh3x2xDemoMoveDetectTimerHandler(GU32 unTimeIntervalMs);
+-
+-
+-#endif /* _GH3X2X_DEMO_INNER_H_ */
+-
+-/********END OF FILE********* Copyright (c) 2003 - 2022, Goodix Co., Ltd. ********/
++/**
++ * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
++ *
++ * @file    gh_demo_inner.h
++ *
++ * @brief   gh3x2x driver lib demo inner header file
++ *
++ * @author  Gooidx Iot Team
++ *
++ */
++
++#ifndef _GH_DEMO_INNER_H_
++#define _GH_DEMO_INNER_H_
++#include "gh_demo_config.h"
++#include "gh_drv_control.h"
++
++
++#ifdef GOODIX_DEMO_PLATFORM
++#include "gh3x2x_demo_goodix_platform.h"
++#else
++/* XIAO nRF52840 Sense port: map the platform entities to xiao_hal.h (platform_xiao.cpp) */
++#include "xiao_hal.h"
++#define GOODIX_PLATFORM_SAMPLING_START_HOOK_ENTITY()
++#define GOODIX_PLATFORM_SAMPLING_STOP_HOOK_ENTITY()
++#define GOODIX_PLATFORM_SPI_WRITE_ENTITY(write_buffer, length)      xiao_spi_write((uint8_t*)(write_buffer), (length))
++#define GOODIX_PLATFORM_PROTOCOL_ANALYZE()
++#define GOODIX_PLATFORM_REPORT_EVRENT_ENTITY()
++#define GOODIX_PLATFORM_SPI_READ_ENTITY(read_buffer, length)        xiao_spi_read((uint8_t*)(read_buffer), (length))
++#define GOODIX_PLATFORM_SPI_CS_CTRL_ENTITY(cs_pin_level)            xiao_spi_cs(cs_pin_level)
++#define GOODIX_PLATFORM_SPI_RESET_PIN_ENTITY(pin_level)             xiao_reset_pin(pin_level)
++#define GOODIX_PLATFORM_INT_HANDLER_CALL_BACK_ENTITY()              xiao_int_callback()
++#define GOODIX_PLATFORM_INT_GS_START_CACHE_ENTITY()                 xiao_gs_start_cache()
++#define GOODIX_PLATFORM_INT_GS_STOP_CACHE_ENTITY()                  xiao_gs_stop_cache()
++#define GOODIX_PLATFORM_INT_GET_GS_DATA_ENTITY(gsensor_buffer, gsensor_buffer_index)  xiao_gs_get_fifo((void*)(gsensor_buffer), (gsensor_buffer_index))
++#define GOODIX_PLATFORM_LOG_ENTITY(log_string)                      xiao_log((const char*)(log_string))
++#define GOODIX_PLATFORM_DELAY_US_ENTITY(usUsec)                     xiao_delay_us(usUsec)
++#define GOODIX_PLATFORM_DELAY_MS_ENTITY(usMsec)                     xiao_delay_ms(usMsec)
++#define GOODIX_PLATFORM_SERIAL_SEND_ENTITY(uchTxDataBuf, usBufLen)  xiao_serial_send((uint8_t*)(uchTxDataBuf), (usBufLen))
++#define GOODIX_PLATFORM_INT_INIT_ENTITY()                           xiao_int_init()
++#define GOODIX_PLATFORM_RESET_PIN_INIT_ENTITY()                     xiao_reset_pin_init()
++#define GOODIX_PLATFORM_SPI_INIT_ENTITY()                           xiao_spi_init()
++#define GOODIX_PLATFORM_CREAT_ADT_CONFIRM_ENTITY(unPeriodMs)        xiao_ms_timer_create(unPeriodMs)
++#define GOODIX_PLATFORM_START_TIMER_ENTITY()                        xiao_ms_timer_start()
++#define GOODIX_PLATFORM_STOP_TIMER_ENTITY()                         xiao_ms_timer_stop()
++#define GOODIX_PLATFORM_DEL_TIMER_ENTITY()                          xiao_ms_timer_delete()
++#define GOODIX_PLATFORM_WEAR_ON_EVENT()
++#define GOODIX_PLATFORM_WEAR_OFF_EVENT()
++#define GOODIX_PLATFORM_NONLIVING_WEAR_OFF_EVENT()
++#define GOODIX_PLATFORM_LEAD_ON_EVENT()
++#define GOODIX_PLATFORM_LEAD_OFF_EVENT()
++#define GOODIX_PLATFORM_HR_RESULT_REPORT_ENTITY()
++#define GOODIX_PLATFORM_SPO2_RESULT_REPORT_ENTITY()
++#define GOODIX_PLATFORM_SERIAL_TIMER_STOP_ENTITY()                  xiao_serial_timer_stop()
++#define GOODIX_PLATFORM_SERIAL_TIMER_START_ENTITY()                 xiao_serial_timer_start(__GH3X2X_PROTOCOL_SEND_TIMER_PERIOD__)
++#define GOODIX_PLATFORM_I2C_WRITE_ENTITY(device_id, write_buffer,length)
++#define GOODIX_PLATFORM_I2C_INIT_ENTITY()
++#define GOODIX_PLATFORM_I2C_READ_ENTITY(device_id, write_buffer, write_length, read_buffer, read_length)
++#define GOODIX_PLATFORM_INT_CAP_START_CACHE_ENTITY()
++#define GOODIX_PLATFORM_INT_CAP_STOP_CACHE_ENTITY()
++#define GOODIX_PLATFORM_INT_GET_CAP_DATA_ENTITY(cap_data_buffer, cap_buffer_index)
++#define GOODIX_PLATFORM_INT_TEMP_START_CACHE_ENTITY()
++#define GOODIX_PLATFORM_INT_TEMP_STOP_CACHE_ENTITY()
++#define GOODIX_PLATFORM_INT_GET_TEMP_DATA_ENTITY(temp_data_buffer,temp_buffer_index)
++#define GOODIX_PLATFORM_WRITE_CAP_TO_FLASH_ENTITY(WearCap1, UnwearCap1, WearCap2, UnwearCap2)
++#define GOODIX_PLATFORM_READ_CAP_FROM_FLASH_ENTITY(WearCap1, UnwearCap1, WearCap2, UnwearCap2)
++#define GOODIX_PLATFORM_BEFORE_WAKE_UP_HOOK_ENTITY()
++#define GOODIX_PLATFORM_WAKE_UP_HOOK_ENTITY()
++#define GOODIX_PLATFORM_PT_CONFIG_HOOK_ENTITY()
++#define GOODIX_PLATFORM_START_WITH_CONFIRM_HOOK_ENTITY()
++#define GOODIX_PLATFORM_PRESSURE_PARAS_READ_ENTITY(buffer)          0
++#define GOODIX_PLATFORM_PRESSURE_PARAS_WRITE_ENTITY(buffer)         0
++#define GOODIX_PLATFORM_PRINTF_ENTITY()
++#define GOODIX_PLATFORM_MALLOC_USER_ENTITY(unMemSize)               0
++#define GOODIX_PLATFORM_FREE_USER_ENTITY(MemAddr)
++#define GOODIX_PLATFORM_NADT_RESULT_HANDLE_ENTITY()
++#define GOODIX_PLATFORM_GOODIX_ALGO_CALL_ENTITY()
++#define GOODIX_PLATFORM_INT_DIVIDE_ZERO_ENABLE_ENTITY()
++#endif
++
++#define __PROTOCOL_DATA_LEN__       235
++
++#if defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
++  #ifndef __packed
++    #define __packed __attribute__((__packed__))
++  #endif /* __packed */
++#endif /* __GNUC__ */
++
++typedef struct
++{
++    GS16 sXAxisVal; // X-Axis Value
++    GS16 sYAxisVal; // Y-Axis Value
++    GS16 sZAxisVal; // Z-Axis Value
++#if __GS_GYRO_ENABLE__
++    GS16 sXGyroVal;
++    GS16 sYGyroVal;
++    GS16 sZGyroVal;
++#endif
++}STGsensorRawdata;
++
++#if __GH3X2X_MEM_POOL_CHECK_EN__
++extern GU8  g_uchGh3x2xMemPollHaveGetCheckSum;
++#endif
++extern GU8 g_uchDemoWorkMode;
++#if (__NORMAL_INT_PROCESS_MODE__ == __INTERRUPT_PROCESS_MODE__ || __MIX_INT_PROCESS_MODE__ == __INTERRUPT_PROCESS_MODE__)
++//hal_gh3x2x_int_handler_call_back is called, this value is 1
++extern GU8 g_uchGh3x2xIntCallBackIsCalled; 
++#endif
++/// save function opened of driver lib
++extern GU32 g_unDemoFuncMode;
++/* config list array */
++extern const STGh3x2xInitConfig g_stGh3x2xCfgListArr[];
++
++
++extern STGh3x2xFifoMonitorInfo g_stFifoMonitorInfo;
++
++/* i2c interface */
++/**
++ * @fn     void hal_gh3x2x_i2c_init(void)
++ * 
++ * @brief  hal i2c init for gh3x2x
++ *
++ * @attention   None
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void hal_gh3x2x_i2c_init(void);
++
++/**
++ * @fn     uint8_t hal_gh3x2x_i2c_write(uint8_t device_id, const uint8_t write_buffer[], uint16_t length)
++ * 
++ * @brief  hal i2c write for gh3x2x
++ *
++ * @attention   device_id is 8bits, if platform i2c use 7bits addr, should use (device_id >> 1)
++ *
++ * @param[in]   device_id       device addr
++ * @param[in]   write_buffer    write data buffer
++ * @param[in]   length          write data len
++ * @param[out]  None
++ *
++ * @return  status
++ * @retval  #1      return successfully
++ * @retval  #0      return error
++ */
++GU8 hal_gh3x2x_i2c_write(GU8 device_id, const GU8 write_buffer[], GU16 length);
++
++/**
++ * @fn     uint8_t hal_gh3x2x_i2c_read(uint8_t device_id, const uint8_t write_buffer[], uint16_t write_length,
++ *                            uint8_t read_buffer[], uint16_t read_length)
++ * 
++ * @brief  hal i2c read for gh3x2x
++ *
++ * @attention   device_id is 8bits, if platform i2c use 7bits addr, should use (device_id >> 1)
++ *
++ * @param[in]   device_id       device addr
++ * @param[in]   write_buffer    write data buffer
++ * @param[in]   write_length    write data len
++ * @param[in]   read_length     read data len
++ * @param[out]  read_buffer     pointer to read buffer
++ *
++ * @return  status
++ * @retval  #1      return successfully
++ * @retval  #0      return error
++ */
++GU8 hal_gh3x2x_i2c_read(GU8 device_id, const GU8 write_buffer[], GU16 write_length, GU8 read_buffer[], GU16 read_length);                       
++
++/* spi interface */
++/**
++ * @fn     void hal_gh3x2x_spi_init(void)
++ * 
++ * @brief  hal spi init for gh3x2x
++ *
++ * @attention   None
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void hal_gh3x2x_spi_init(void);
++
++/**
++ * @fn     GU8 hal_gh3x2x_spi_write(GU8 write_buffer[], GU16 length)
++ * 
++ * @brief  hal spi write for gh3x2x
++ *
++ * @attention   None
++ *
++ * @param[in]   write_buffer    write data buffer
++ * @param[in]   length          write data len
++ * @param[out]  None
++ *
++ * @return  status
++ * @retval  #1      return successfully
++ * @retval  #0      return error
++ */
++extern GU8 hal_gh3x2x_spi_write(GU8 write_buffer[], GU16 length);
++
++/**
++ * @fn     GU8 hal_gh3x2x_spi_read(GU8 read_buffer[], GU16 length)
++ * 
++ * @brief  hal spi read for gh3x2x
++ *
++ * @attention   None
++ *
++ * @param[in]   read_length     read data len
++ * @param[out]  read_buffer     pointer to read buffer
++ *
++ * @return  status
++ * @retval  #1      return successfully
++ * @retval  #0      return error
++ */
++extern GU8 hal_gh3x2x_spi_read(GU8 read_buffer[], GU16 length);
++
++extern GU8 hal_gh3x2x_spi_write_F1_and_read(GU8 read_buf[], GU16 length);
++
++
++/**
++ * @fn     void hal_gh3x2x_spi_cs_ctrl(GU8 cs_pin_level)
++ * 
++ * @brief  hal spi cs pin ctrl for gh3x2x
++ *
++ * @attention   pin level set 1 [high level] or 0 [low level]
++ *
++ * @param[in]   cs_pin_level     spi cs pin level
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void hal_gh3x2x_spi_cs_ctrl(GU8 cs_pin_level);
++
++/**
++ * @fn     void hal_gh3x2x_int_init(void)
++ * 
++ * @brief  gh3x2x int init
++ *
++ * @attention   None
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void hal_gh3x2x_reset_pin_init(void);
++
++/**
++ * @fn     void hal_gh3x2x_reset_pin_ctrl(GU8 pin_level)
++ * 
++ * @brief  hal reset pin ctrl for gh3x2x
++ *
++ * @attention   pin level set 1 [high level] or 0 [low level]
++ *
++ * @param[in]   pin_level     reset pin level
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void hal_gh3x2x_reset_pin_ctrl(GU8 pin_level);
++
++/**
++ * @fn     void hal_gh3x2x_int_init(void)
++ * 
++ * @brief  gh3x2x int init
++ *
++ * @attention   None
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void hal_gh3x2x_int_init(void);
++
++/**
++ * @fn     void hal_gsensor_start_cache_data(void)
++ * 
++ * @brief  Start cache gsensor data for gh3x2x
++ *
++ * @attention   This function will be called when start gh3x2x sampling.
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void hal_gsensor_start_cache_data(void);
++
++/**
++ * @fn     void hal_gsensor_stop_cache_data(void)
++ * 
++ * @brief  Stop cache gsensor data for gh3x2x
++ *
++ * @attention   This function will be called when stop gh3x2x sampling.
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void hal_gsensor_stop_cache_data(void);
++extern void hal_cap_start_cache_data(void);
++extern void hal_cap_stop_cache_data(void);
++extern void hal_temp_start_cache_data(void);
++extern void hal_temp_stop_cache_data(void);
++/**
++ * @fn     void hal_gsensor_drv_get_fifo_data(STGsensorRawdata gsensor_buffer[], GU16 *gsensor_buffer_index)
++ * 
++ * @brief  get gsensor fifo data
++ *
++ * @attention   When read fifo data of GH3x2x,user should call this function to get gsensor data.And user must
++ *              assure that these gsensor data is corresponding to GH3x2x fifo data
++ *
++ * @param[in]   None
++ * @param[out]  gsensor_buffer          pointer to gsensor data buffer
++ * @param[out]  gsensor_buffer_index    pointer to number of gsensor data
++ *
++ * @return  None
++ */
++extern void hal_gsensor_drv_get_fifo_data(STGsensorRawdata gsensor_buffer[], GU16 *gsensor_buffer_index);
++extern void hal_cap_drv_get_fifo_data(STCapRawdata cap_data_buffer[], GU16 *cap_buffer_index);
++extern void hal_temp_drv_get_fifo_data(STTempRawdata Temp_data_buffer[], GU16 *temp_buffer_index);
++/**
++ * @fn     void GH3X2X_PlatformLog(char *log_string)
++ * 
++ * @brief  for debug version, log
++ *
++ * @attention   this function must define that use debug version lib
++ *
++ * @param[in]   log_string      pointer to log string
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void GH3X2X_PlatformLog(GCHAR *log_string);
++extern void GH3X2X_RegisterPrintf(int (**pPrintfUser)(const char *format, ...));
++
++/**
++ * @fn     void Gh3x2x_BspDelayUs(GU16 usUsec)
++ * 
++ * @brief  Delay in us,user should register this function into driver lib
++ *
++ * @attention   None
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_BspDelayUs(GU16 usUsec);
++
++/**
++ * @fn     void Gh3x2x_BspDelayMs(GU16 usMsec)
++ * 
++ * @brief  Delay in ms
++ *
++ * @attention   None
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_BspDelayMs(GU16 usMsec);
++
++/**
++ * @fn     void Gh3x2x_LeadOnEventHook(void)
++ * 
++ * @brief  Lead on event hook
++ *
++ * @attention   None        
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_LeadOnEventHook(void);
++
++/**
++ * @fn     void Gh3x2x_LeadOffEventHook(void)
++ * 
++ * @brief  Lead off event hook
++ *
++ * @attention   None        
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_LeadOffEventHook(void);
++/**
++ * @fn     void Gh3x2x_BeforeWakeUpHook(void)
++ * 
++ * @brief  Before WakeUp Hook
++ *
++ * @attention   None        
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_BeforeWakeUpHook(void);
++
++/**
++ * @fn     void Gh3x2x_WakeUpHook(void)
++ * 
++ * @brief  WakeUp Hook
++ *
++ * @attention   None        
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_WakeUpHook(void);
++
++/**
++ * @fn     void Gh3x2x_WearEventHook(GU16 usGotEvent, GU8 uchType)
++ * 
++ * @brief  Wear event hook
++ *
++ * @attention   None        
++ *
++ * @param[in]   wear event
++ * @param[in]   wear off type  0: no object  1: nonliving object
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_WearEventHook(GU16 usGotEvent, GU8 uchType);
++#if (__GH3X2X_CASCADE_EN__)
++extern void Gh3x2x_WearEventCascadeEcgHandle(GU16 usGotEvent);
++#endif
++
++/**
++ * @fn     void Gh3x2x_UserHandleCurrentInfo(void)
++ * 
++ * @brief  handle gh3x2x chip current information for user
++ *
++ * @attention   None        
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++void Gh3x2x_UserHandleCurrentInfo(void);
++
++/**
++ * @fn     void Gh3x2xDemoAlgorithmCalculate(GU8* puchReadFifoBuffer, STGsensorRawdata *pstGsAxisValueArr, 
++ *                                              GU16 usGsDataNum, EMGsensorSensitivity emGsSensitivity)
++ *
++ * @brief  Algorithm calculate.This function will be called in Gh3x2xDemoInterruptProcess()
++ *
++ * @attention   None
++ *
++ * @param[in]   puchReadFifoBuffer      point to gh3x2x fifo data buffer
++ * @param[in]   pstGsAxisValueArr       point to gsensor data buffer
++ * @param[in]   usGsDataNum             gsensor data cnt
++ * @param[in]   emGsSensitivity         sensitivity of gsensor
++ * @param[out]  None
++ *
++ * @return  None
++ */
++
++void Gh3x2xDemoFunctionProcess(GU8* puchReadFifoBuffer, GU16 usFifoBuffLen,STGsensorRawdata *pstGsAxisValueArr, GU16 usGsDataNum,
++                                   STCapRawdata* pstCapValueArr,GU16 usCapDataNum,STTempRawdata* pstTempValueArr,GU16 usTempDataNum);
++
++/**
++ * @fn     void Gh3x2xDemoSamplingControl(EMUprotocolParseCmdType emSwitch)
++ *
++ * @brief  Start/stop sampling of gh3x2x and sensor
++ *
++ * @attention   None
++ *
++ * @param[in]   unFuncMode      function that will be started or stopped
++ * @param[in]   emSwitch        stop/start sampling
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2xDemoSamplingControl(GU32 unFuncMode, EMUprotocolParseCmdType emSwitch);
++
++/// dump mode
++extern GU16 g_usDumpMode;
++extern GU8 g_uchGh3x2xRegCfgArrIndex;
++extern GU16 g_usCurrentConfigListFifoWmBak;
++extern void GH3X2X_LedAgcProcessExDump(GU8* puchReadFifoBuffer);
++extern void GH3X2X_ReadElectrodeWearDumpData(void);
++extern void GH3X2X_RecordDumpData(void);
++extern void gh3x2x_init_hook_func(void);
++extern void gh3x2x_sampling_start_hook_func(void);
++extern void gh3x2x_sampling_stop_hook_func(void);
++extern void gh3x2x_get_rawdata_hook_func(GU8 *read_buffer_ptr, GU16 length);
++extern void gh3x2x_algorithm_get_io_data_hook_func(const STGh3x2xFrameInfo * const pstFrameInfo);
++extern void gh3x2x_frame_data_hook_func(const STGh3x2xFrameInfo * const pstFrameInfo);
++extern void gh3x2x_reset_by_protocol_hook(void);
++extern void gh3x2x_config_set_start_hook(void);
++extern void gh3x2x_config_set_stop_hook(void);
++extern void gh3x2x_write_algo_config_hook(GU16 usVirtualRegAddr, GU16 usVirtualRegValue);
++
++/**
++ * @fn     void Gh3x2xDemoReportEvent(GU16 usEvent,GU8 uchWearType)
++ *
++ * @brief  Report event to APP/EVK
++ *
++ * @attention   None
++ *
++ * @param[in]   usEvent      GH3x2x event
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2xDemoReportEvent(GU16 usEvent,GU8 uchWearType);
++
++/**
++ * @fn     void Gh3x2x_HalSerialSendData(GU8* uchTxDataBuf, GU16 usBufLen)
++ *
++ * @brief  Serial send data
++ *
++ * @attention   None
++ *
++ * @param[in]   uchTxDataBuf        pointer to data buffer to be transmitted
++ * @param[in]   usBufLen            data buffer length
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_HalSerialSendData(GU8* uchTxDataBuf, GU16 usBufLen);
++
++/**
++ * @fn     void Gh3x2x_StartAdtConfirmTimer(void)
++ * 
++ * @brief  Start time of adt confirm to get g sensor
++ *
++ * @attention   None        
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2xSerialSendTimerStop(void);
++extern void Gh3x2xSerialSendTimerStart(void);
++extern void Gh3x2x_StartMultiSensorTimer(void);
++extern void Gh3x2xSerialSendTimerInit(GU8 uchPeriodMs);
++/**
++ * @fn     void Gh3x2x_StopAdtConfirmTimer(void)
++ * 
++ * @brief  Stop time of adt confirm
++ *
++ * @attention   None        
++ *
++ * @param[in]   None
++ * @param[out]  None
++ *
++ * @return  None
++ */
++extern void Gh3x2x_StopMultiSensorTimer(void);
++extern void Gh3x2xDemoSendWearOrLeadStateToUI(GU8 state);
++extern void Gh3x2x_HalSerialFifoInit(void);
++extern void Gh3x2xMemPoolCheckSumWrite(GU8 *lunMemPool);
++extern GU16 Gh3x2xMemPoolCheckSumCheck(GU8 *lunMemPool);
++extern void Gh3x2xCheckMemPollBeforeAlgoCal(void);
++extern void Gh3x2xUpdataMemPollChkSumAfterAlgoCal(void);
++extern void GH3x2xMaserControlFunctionLog(GU32 unFuncMode, EMUprotocolParseCmdType emCmdType);
++#if ( __FUNC_TYPE_BP_ENABLE__ && (__GH3X2X_INTERFACE__ == __GH3X2X_INTERFACE_I2C__))
++extern GS8 gh3x2x_write_pressure_parameters(GS32 *buffer);
++extern GS8 gh3x2x_read_pressure_parameters(GS32 *buffer);
++#endif
++extern void* Gh3x2xMallocUser(GU32 unMemSize);
++extern void Gh3x2xFreeUser(void* MemAddr);
++
++extern void Gh3x2xDemoStopAlgoInner(GU32 unFuncMode);
++extern void Gh3x2xDemoStartAlgoInner(GU32 unFuncMode);
++
++extern void Gh3x2xDemoMoveDetectTimerHandler(GU32 unTimeIntervalMs);
++
++
++#endif /* _GH3X2X_DEMO_INNER_H_ */
++
++/********END OF FILE********* Copyright (c) 2003 - 2022, Goodix Co., Ltd. ********/
+diff --color -ruN a/demo_kernel_code/kernel/gh_demo_reg_array.c b/demo_kernel_code/kernel/gh_demo_reg_array.c
+--- a/demo_kernel_code/kernel/gh_demo_reg_array.c	2025-06-11 17:39:31
++++ b/demo_kernel_code/kernel/gh_demo_reg_array.c	2026-09-18 17:00:15
+@@ -1,219 +1,220 @@
+-/**
+- * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
+- * 
+- * @file    gh3x2x_demo_reg_array.c
+- * 
+- * @brief   gh3x2x driver lib reg config array
+- * 
+- * @author  Gooidx Iot Team
+- * 
+- */
+-
+-#include "gh_demo_config.h"
+-#include "gh_demo_inner.h"
+-
+-/// HR+SPO2+NADT+ADT
+-const STGh3x2xReg gh3x2x_reg_list0[] =
+-{
+-   {0x0004, 0x001F}, {0x0006, 0x0005}, {0x000A, 0x00A0}, {0x000E, 0x000D}, {0x0100, 0x0100}, {0x0102, 0x0302},
+-    {0x0104, 0x0504}, {0x010A, 0x277C}, {0x0110, 0x0D14}, {0x0112, 0x5555}, {0x0114, 0x00AA}, {0x011E, 0x0019},
+-    {0x0120, 0x0400}, {0x0122, 0x0CBF}, {0x0126, 0x2744}, {0x0128, 0x0001}, {0x012A, 0x0000}, {0x012C, 0x0D16},
+-    {0x012E, 0x4441}, {0x0130, 0x0002}, {0x013A, 0x0219}, {0x013C, 0x0400}, {0x013E, 0x197F}, {0x0142, 0x2744},
+-    {0x0144, 0x0001}, {0x0146, 0x0000}, {0x0148, 0x0D16}, {0x014A, 0x4441}, {0x014C, 0x0002}, {0x0156, 0x0119},
+-    {0x0158, 0x0400}, {0x015A, 0x197F}, {0x015E, 0x2744}, {0x0160, 0x0001}, {0x0162, 0x0000}, {0x0164, 0x0C10},
+-    {0x0166, 0x4442}, {0x0168, 0x0002}, {0x0172, 0x010C}, {0x0174, 0x0400}, {0x017A, 0x2744}, {0x017C, 0x0001},
+-    {0x017E, 0x0000}, {0x0180, 0x0000}, {0x0182, 0x4442}, {0x0184, 0x0002}, {0x018E, 0x0400}, {0x0190, 0x0400},
+-    {0x0196, 0xC704}, {0x0198, 0x0001}, {0x019A, 0x0000}, {0x019C, 0x0C10}, {0x019E, 0x4442}, {0x01A0, 0x0002},
+-    {0x01A6, 0x0003}, {0x01AA, 0x010C}, {0x01AC, 0x0400}, {0x01EC, 0x0172}, {0x01EE, 0x034A}, {0x01F0, 0x034A},
+-    {0x01F2, 0x00E8}, {0x01F4, 0x006A}, {0x01F6, 0x00E8}, {0x0200, 0x0120}, {0x0280, 0x0A00}, {0x0282, 0xF530},
+-    {0x0284, 0x9388}, {0x0286, 0xC45C}, {0x0288, 0xA328}, {0x0408, 0x0001}, {0x0410, 0x49F0}, {0x0412, 0x0082},
+-    {0x0414, 0x49F0}, {0x0416, 0x0082}, {0x0422, 0x0011}, {0x0424, 0x0901}, {0x0426, 0x0102}, {0x0428, 0x0102},
+-    {0x0502, 0x4F60}, {0x0504, 0x000A}, {0x0506, 0x0020}, {0x0588, 0x0008}, {0x0692, 0x0233}, {0x0694, 0x0400},
+-    {0x0698, 0x2310}, {0x0700, 0x0000}, {0x1000, 0x0000}, {0x1002, 0x3197}, {0x1004, 0x0000}, {0x1006, 0xDEA0},
+-    {0x1008, 0x2D04}, {0x100A, 0x0001}, {0x10E0, 0x0000}, {0x10E2, 0x0000}, {0x10E4, 0x00FF}, {0x10E6, 0xFFFF},
+-    {0x10E8, 0x0202}, {0x10EA, 0x0202}, {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x00C8}, {0x1122, 0x0005},
+-    {0x1124, 0x0000}, {0x1140, 0x0000}, {0x1142, 0x00C8}, {0x1144, 0x0001}, {0x1160, 0x0007}, {0x1162, 0x0000},
+-    {0x1164, 0x0402}, {0x1166, 0x4568}, {0x1168, 0x9940}, {0x116A, 0x00D9}, {0x116C, 0x8800}, {0x116E, 0x0093},
+-    {0x1170, 0x5C00}, {0x1172, 0x00C4}, {0x1174, 0x2800}, {0x1176, 0x00A3}, {0x2000, 0x0001}, {0x2002, 0x00A2},
+-    {0x2022, 0x0004}, {0x2024, 0x0901}, {0x2026, 0x1911}, {0x20CC, 0x0002}, {0x20CE, 0x4223}, {0x2132, 0x0003},
+-    {0x2134, 0x6201}, {0x2136, 0x0085}, {0x2880, 0x0005}, {0x2882, 0x0019}, {0x288C, 0x0019}, {0x2892, 0x0019},
+-    {0x3000, 0x0001}, {0x3002, 0x0000}, {0x3004, 0x49F0}, {0x3006, 0x0082}, {0xFFFF, 0x0001}
+-};
+-
+-#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 1)
+-//ecg
+-const STGh3x2xReg gh3x2x_reg_list1[] =
+-{
+-    //ecg single chip(256hz)
+-    {0x0000, 0x0602}, {0x0004, 0x0018}, {0x0006, 0x0001}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050},
+-    {0x0100, 0x0100}, {0x010A, 0x0462}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x011E, 0x0400},
+-    {0x0120, 0x0400}, {0x0126, 0xC704}, {0x0128, 0x0001}, {0x012A, 0x0000}, {0x012C, 0x0C10}, {0x012E, 0x4442},
+-    {0x0130, 0x0002}, {0x0136, 0x0003}, {0x013A, 0x010C}, {0x013C, 0x0400}, {0x01EA, 0x0033}, {0x01EC, 0x0030},
+-    {0x01EE, 0x00E8}, {0x0200, 0x1020}, {0x0402, 0x5555}, {0x0404, 0x4120}, {0x0406, 0x0041}, {0x0408, 0x0001},
+-    {0x0410, 0x49F0}, {0x0412, 0x0082}, {0x0414, 0x49F0}, {0x0416, 0x0082}, {0x0422, 0x0011}, {0x0424, 0x0901},
+-    {0x0426, 0x0109}, {0x0428, 0x0108}, {0x0480, 0x6550}, {0x0502, 0x4C66}, {0x0506, 0x0020}, {0x0588, 0x0008},
+-    {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000}, {0x0400, 0x5557},
+-    {0x1000, 0x0000}, {0x1002, 0x3197}, {0x1004, 0x0000}, {0x1006, 0xE016}, {0x1008, 0x2D04}, {0x100A, 0x0001},
+-    {0x10E0, 0x00FF}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202}, {0x10EA, 0x0202},
+-    {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000}, {0x2000, 0x0001},
+-    {0x2002, 0x0022}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005}, {0x288E, 0x00FA}, {0x3000, 0x0101},
+-    {0x3002, 0x0000}, {0x3004, 0x49F0}, {0x3006, 0x0082}, {0x4500, 0x46C9}, {0x4502, 0x0F0F}, {0x4504, 0x0002},
+-    {0x4506, 0x0100}, {0xFFFF, 0x0001}
+-};
+-#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 1) */
+-
+-#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 2)
+-const STGh3x2xReg gh3x2x_reg_list2[] =
+-{
+-    //ecg master 500Hz  Rtype 5M
+-    #if __GH3X2X_ECG_RTYPE_5M__
+-    {0x0000, 0x0610}, {0x0004, 0x0013}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050}, {0x0100, 0x0100},
+-    {0x010A, 0x01E2}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x0120, 0x0400}, {0x0126, 0xC73C},
+-    {0x012C, 0x0C10}, {0x012E, 0x2222}, {0x0130, 0x00AA}, {0x0136, 0x00FF}, {0x013C, 0x0400}, {0x01EA, 0x0033},
+-    {0x01EC, 0x0030}, {0x01EE, 0x0098}, {0x0200, 0x1020}, {0x0208, 0x0001}, {0x0402, 0x5555}, {0x0404, 0x4130},
+-    {0x0406, 0x0041}, {0x0408, 0x0001}, {0x0426, 0x0101}, {0x0428, 0x0101}, {0x0480, 0x6550}, {0x0502, 0x4C66},
+-    {0x0588, 0x0008}, {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000},
+-    {0x0400, 0x5557}, {0x1000, 0x0000}, {0x1002, 0x3190}, {0x1004, 0x0000}, {0x1006, 0xAB08}, {0x1008, 0x2937},
+-    {0x100A, 0x0001}, {0x10E0, 0x0000}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202},
+-    {0x10EA, 0x0202}, {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000},
+-    {0x2000, 0x0004}, {0x2002, 0x2D25}, {0x2004, 0x3D35}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005},
+-    {0x288E, 0x01F4}, {0x3000, 0x0101}, {0x3002, 0x0000}, {0x3004, 0x0000}, {0x3006, 0x0000}, {0x4500, 0x46C9},
+-    {0x4502, 0x0F0F}, {0x4504, 0x000A}, {0x4506, 0x0320}, {0x45C0, 0x0000}, {0x45C2, 0x0000}, {0x45C4, 0x0000},
+-    {0x45C6, 0x0000}, {0xFFFF, 0x0001}, 
+-    #else
+-    {0x0000, 0x0610}, {0x0004, 0x0013}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050}, {0x0100, 0x0100},
+-    {0x010A, 0x01E2}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x0120, 0x0400}, {0x0126, 0xC73C},
+-    {0x012C, 0x0C10}, {0x012E, 0x2222}, {0x0130, 0x00AA}, {0x0136, 0x00FF}, {0x013C, 0x0400}, {0x01EA, 0x0033},
+-    {0x01EC, 0x0030}, {0x01EE, 0x0098}, {0x0200, 0x1020}, {0x0208, 0x0001}, {0x0402, 0x5555}, {0x0404, 0x4120},
+-    {0x0406, 0x0041}, {0x0408, 0x0001}, {0x0426, 0x0101}, {0x0428, 0x0101}, {0x0480, 0x6550}, {0x0502, 0x4C66},
+-    {0x0588, 0x0008}, {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000},
+-    {0x0400, 0x5557}, {0x1000, 0x0000}, {0x1002, 0x3190}, {0x1004, 0x0000}, {0x1006, 0x212D}, {0x1008, 0x293A},
+-    {0x100A, 0x0001}, {0x10E0, 0x0000}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202},
+-    {0x10EA, 0x0202}, {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000},
+-    {0x2000, 0x0004}, {0x2002, 0x2D25}, {0x2004, 0x3D35}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005},
+-    {0x288E, 0x01F4}, {0x3000, 0x0101}, {0x3002, 0x0000}, {0x3004, 0x0000}, {0x3006, 0x0000}, {0x4500, 0x46C9},
+-    {0x4502, 0x0F0F}, {0x4504, 0x000A}, {0x4506, 0x0320}, {0x45C0, 0x0000}, {0x45C2, 0x0000}, {0x45C4, 0x0000},
+-    {0x45C6, 0x0000}, {0xFFFF, 0x0001}, 
+-
+-    #endif
+-
+-};
+-#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 2) */
+-
+-#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 3)
+-const STGh3x2xReg gh3x2x_reg_list3[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 3) */
+-
+-#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 4)
+-const STGh3x2xReg gh3x2x_reg_list4[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 4) */
+-
+-#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 5)
+-const STGh3x2xReg gh3x2x_reg_list5[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 5) */
+-
+-#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 6)
+-const STGh3x2xReg gh3x2x_reg_list6[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 6) */
+-
+-#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 7)
+-const STGh3x2xReg gh3x2x_reg_list7[] =
+-{
+-    {0,0},
+-};
+-#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 7) */
+-
+-const STGh3x2xInitConfig g_stGh3x2xCfgListArr[__GH3X2X_CFG_LIST_MAX_NUM__] = 
+-{
+-    {gh3x2x_reg_list0,sizeof(gh3x2x_reg_list0) / sizeof(gh3x2x_reg_list0[0])},
+-    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 1)
+-    {gh3x2x_reg_list1,sizeof(gh3x2x_reg_list1) / sizeof(gh3x2x_reg_list1[0])},
+-    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 1) */
+-    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 2)
+-    {gh3x2x_reg_list2,sizeof(gh3x2x_reg_list2) / sizeof(gh3x2x_reg_list2[0])},
+-    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 2) */
+-    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 3)
+-    {gh3x2x_reg_list3,sizeof(gh3x2x_reg_list3) / sizeof(gh3x2x_reg_list3[0])},
+-    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 3) */
+-    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 4)
+-    {gh3x2x_reg_list4,sizeof(gh3x2x_reg_list4) / sizeof(gh3x2x_reg_list4[0])},
+-    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 4) */
+-    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 5)
+-    {gh3x2x_reg_list5,sizeof(gh3x2x_reg_list5) / sizeof(gh3x2x_reg_list5[0])},
+-    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 5) */
+-    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 6)
+-    {gh3x2x_reg_list6,sizeof(gh3x2x_reg_list6) / sizeof(gh3x2x_reg_list6[0])},
+-    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 6) */
+-    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 7)
+-    {gh3x2x_reg_list7,sizeof(gh3x2x_reg_list7) / sizeof(gh3x2x_reg_list7[0])},
+-    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 7) */
+-};
+-
+-
+-#if (__GH3X2X_CASCADE_EN__)
+-const STGh3x2xReg stGh3x2xEcgCascadeSlaveRealReglist[] = 
+-{
+-
+-/***Ecg Cascade Slaver: No lead detected****/
+-#if 0
+-    {0x0000, 0x06B0}, {0x0004, 0x001F}, {0x000A, 0x0064}, {0x000E, 0x000D}, {0x0100, 0x0800}, {0x010A, 0x01E2},
+-    {0x010E, 0x0004}, {0x01EA, 0x0033}, {0x01EC, 0x0030}, {0x0200, 0x1020}, {0x0208, 0x0001}, {0x0480, 0x6550},
+-    {0x0502, 0x4060}, {0x0588, 0x0008}, {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101},
+-    {0x0700, 0x0000},
+-#endif
+-    
+-/***Ecg Cascade Slaver: lead detected****/
+-#if 1
+-    //internal 32K :{0x0000, 0x0630},  {0x0074, 0x0050},
+-    //external 32K :{0x0000, 0x06b0},  {0x0074, 0x00D0},
+-    #if __GH3X2X_ECG_RTYPE_5M__
+-    {0x0000, 0x0630}, {0x0004, 0x0013}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050}, {0x0100, 0x0100},
+-    {0x010A, 0x0162}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x0120, 0x0400}, {0x0126, 0xC73C},
+-    {0x012C, 0x0C10}, {0x012E, 0x2222}, {0x0130, 0x00AA}, {0x0136, 0x00FF}, {0x013C, 0x0400}, {0x01EA, 0x0033},
+-    {0x01EC, 0x0030}, {0x01EE, 0x0098}, {0x0200, 0x1020}, {0x0402, 0x5555}, {0x0404, 0x4130}, {0x0406, 0x0041},
+-    {0x0408, 0x0001}, {0x0426, 0x0101}, {0x0428, 0x0101}, {0x0480, 0x6550}, {0x0502, 0x4C66}, {0x0588, 0x0008},
+-    {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000}, {0x0400, 0x5554},
+-    {0x1000, 0x0000}, {0x1002, 0x3190}, {0x1004, 0x0000}, {0x1006, 0x72E8}, {0x1008, 0x292F}, {0x100A, 0x0001},
+-    {0x10E0, 0x0000}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202}, {0x10EA, 0x0202},
+-    {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000}, {0x2000, 0x0004},
+-    {0x2002, 0x2D25}, {0x2004, 0x3D35}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005}, {0x288E, 0x01F4},
+-    {0x3000, 0x0101}, {0x3002, 0x0000}, {0x3004, 0x0000}, {0x3006, 0x0000}, {0x4500, 0x46C9}, {0x4502, 0x0F0F},
+-    {0x4504, 0x000A}, {0x4506, 0x0320}, {0x45C0, 0x0000}, {0x45C2, 0x0000}, {0x45C4, 0x0000}, {0x45C6, 0x0000},
+-    {0xFFFF, 0x0001}, 
+-    #else
+-    {0x0000, 0x0630}, {0x0004, 0x0013}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050}, {0x0100, 0x0100},
+-    {0x010A, 0x0162}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x0120, 0x0400}, {0x0126, 0xC73C},
+-    {0x012C, 0x0C10}, {0x012E, 0x2222}, {0x0130, 0x00AA}, {0x0136, 0x00FF}, {0x013C, 0x0400}, {0x01EA, 0x0033},
+-    {0x01EC, 0x0030}, {0x01EE, 0x0098}, {0x0200, 0x1020}, {0x0402, 0x5555}, {0x0404, 0x4120}, {0x0406, 0x0041},
+-    {0x0408, 0x0001}, {0x0426, 0x0101}, {0x0428, 0x0101}, {0x0480, 0x6550}, {0x0502, 0x4C66}, {0x0588, 0x0008},
+-    {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000}, {0x0400, 0x5554},
+-    {0x1000, 0x0000}, {0x1002, 0x3190}, {0x1004, 0x0000}, {0x1006, 0x2184}, {0x1008, 0x293A}, {0x100A, 0x0001},
+-    {0x10E0, 0x0000}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202}, {0x10EA, 0x0202},
+-    {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000}, {0x2000, 0x0004},
+-    {0x2002, 0x2D25}, {0x2004, 0x3D35}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005}, {0x288E, 0x01F4},
+-    {0x3000, 0x0101}, {0x3002, 0x0000}, {0x3004, 0x0000}, {0x3006, 0x0000}, {0x4500, 0x46C9}, {0x4502, 0x0F0F},
+-    {0x4504, 0x000A}, {0x4506, 0x0320}, {0x45C0, 0x0000}, {0x45C2, 0x0000}, {0x45C4, 0x0000}, {0x45C6, 0x0000},
+-    {0xFFFF, 0x0001}, 
+-    #endif
+-#endif
+-    
+-
+-};
+-const GU16 g_usEcgCascadeSlaveRealRegLen = sizeof(stGh3x2xEcgCascadeSlaveRealReglist) / sizeof(STGh3x2xReg);
+-
+-#else
+-const GU16 g_usEcgCascadeSlaveRealRegLen = 1;
+-const STGh3x2xReg stGh3x2xEcgCascadeSlaveRealReglist[1];
+-#endif
++/**
++ * @copyright (c) 2003 - 2022, Goodix Co., Ltd. All rights reserved.
++ * 
++ * @file    gh3x2x_demo_reg_array.c
++ * 
++ * @brief   gh3x2x driver lib reg config array
++ * 
++ * @author  Gooidx Iot Team
++ * 
++ */
++
++#include "gh_demo_config.h"
++#include "gh_demo_inner.h"
++
++/// EVK module: ADT+HR+HRV+SPO2+SOFT_ADT_GREEN (from HRV_HR_SPO2_NADT_ADT_V4100_EVK.ini + V4300 chip patch regs)
++const STGh3x2xReg gh3x2x_reg_list0[] =
++{
++    {0x0004, 0x001F}, {0x0006, 0x0005}, {0x000A, 0x00C8}, {0x000E, 0x000D}, {0x0020, 0x5477}, {0x0022, 0x5555},
++    {0x0100, 0x0100}, {0x0102, 0x0302}, {0x0104, 0x0504}, {0x010A, 0x277C}, {0x0110, 0x0F14}, {0x0112, 0x5555},
++    {0x0114, 0x00AA}, {0x011E, 0x0019}, {0x0120, 0x0400}, {0x0122, 0x0C99}, {0x0126, 0x2744}, {0x0128, 0x0001},
++    {0x012A, 0x0000}, {0x012C, 0x0D16}, {0x012E, 0x4442}, {0x0130, 0x0002}, {0x013A, 0x021F}, {0x013C, 0x0400},
++    {0x013E, 0x0C99}, {0x0142, 0x2744}, {0x0144, 0x0001}, {0x0146, 0x0000}, {0x0148, 0x0D16}, {0x014A, 0x4442},
++    {0x014C, 0x0002}, {0x0156, 0x0119}, {0x0158, 0x0400}, {0x015A, 0x0C99}, {0x015E, 0x2744}, {0x0160, 0x0001},
++    {0x0162, 0x0000}, {0x0164, 0x0C10}, {0x0166, 0x4442}, {0x0168, 0x0002}, {0x0172, 0x010C}, {0x0174, 0x0400},
++    {0x017A, 0x2744}, {0x017C, 0x0001}, {0x017E, 0x0000}, {0x0180, 0x0000}, {0x0182, 0x4442}, {0x0184, 0x0002},
++    {0x018E, 0x0400}, {0x0190, 0x0400}, {0x0196, 0xC704}, {0x0198, 0x0001}, {0x019A, 0x0000}, {0x019C, 0x0C10},
++    {0x019E, 0x4442}, {0x01A0, 0x0002}, {0x01A6, 0x0003}, {0x01AA, 0x010C}, {0x01AC, 0x0400}, {0x01EC, 0x0122},
++    {0x01EE, 0x02FA}, {0x01F0, 0x02FA}, {0x01F2, 0x0098}, {0x01F4, 0x001A}, {0x01F6, 0x0098}, {0x0200, 0x0120},
++    {0x0280, 0x0A00}, {0x0282, 0xF530}, {0x0284, 0x9388}, {0x0286, 0xC45C}, {0x0288, 0xA328}, {0x0408, 0x0001},
++    {0x0410, 0xDDD0}, {0x0412, 0x0086}, {0x0414, 0xD090}, {0x0416, 0x0083}, {0x0422, 0x0011}, {0x0424, 0x0901},
++    {0x0426, 0x0102}, {0x0428, 0x0102}, {0x0502, 0x4F60}, {0x0504, 0x000A}, {0x0506, 0x00A1}, {0x0588, 0x0008},
++    {0x0692, 0x0233}, {0x0694, 0x0400}, {0x0698, 0x2310}, {0x069A, 0x1101}, {0x0700, 0x0000}, {0x1000, 0x0000},
++    {0x1002, 0x3197}, {0x1004, 0x0000}, {0x1006, 0x5434}, {0x1008, 0x2B23}, {0x100A, 0x0001}, {0x10E0, 0x0002},
++    {0x10E2, 0x0000}, {0x10E4, 0x00FF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202}, {0x10EA, 0x0202}, {0x10EC, 0x0202},
++    {0x10EE, 0x0202}, {0x1120, 0x00C8}, {0x1122, 0x0005}, {0x1124, 0x0000}, {0x1140, 0x0000}, {0x1142, 0x00C8},
++    {0x1144, 0x0001}, {0x1160, 0x0007}, {0x1162, 0x0000}, {0x1164, 0x0402}, {0x1166, 0x4568}, {0x1168, 0x9940},
++    {0x116A, 0x00D9}, {0x116C, 0x8800}, {0x116E, 0x0093}, {0x1170, 0x5C00}, {0x1172, 0x00C4}, {0x1174, 0x2800},
++    {0x1176, 0x00A3}, {0x2000, 0x0001}, {0x2002, 0x00A2}, {0x2022, 0x0004}, {0x2024, 0x0901}, {0x2026, 0x1911},
++    {0x2044, 0x0004}, {0x2046, 0x0901}, {0x2048, 0x1911}, {0x20CC, 0x0002}, {0x20CE, 0x4223}, {0x2132, 0x0003},
++    {0x2134, 0x6201}, {0x2136, 0x0085}, {0x2880, 0x0005}, {0x2882, 0x0019}, {0x2884, 0x0019}, {0x288C, 0x0019},
++    {0x2892, 0x0019}, {0x3000, 0x0401}, {0x3002, 0x0000}, {0x3004, 0xDDD0}, {0x3006, 0x0086}, {0xFFFF, 0x0001}
++};
++
++#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 1)
++//ecg
++const STGh3x2xReg gh3x2x_reg_list1[] =
++{
++    //ecg single chip(256hz)
++    {0x0000, 0x0602}, {0x0004, 0x0018}, {0x0006, 0x0001}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050},
++    {0x0100, 0x0100}, {0x010A, 0x0462}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x011E, 0x0400},
++    {0x0120, 0x0400}, {0x0126, 0xC704}, {0x0128, 0x0001}, {0x012A, 0x0000}, {0x012C, 0x0C10}, {0x012E, 0x4442},
++    {0x0130, 0x0002}, {0x0136, 0x0003}, {0x013A, 0x010C}, {0x013C, 0x0400}, {0x01EA, 0x0033}, {0x01EC, 0x0030},
++    {0x01EE, 0x00E8}, {0x0200, 0x1020}, {0x0402, 0x5555}, {0x0404, 0x4120}, {0x0406, 0x0041}, {0x0408, 0x0001},
++    {0x0410, 0x49F0}, {0x0412, 0x0082}, {0x0414, 0x49F0}, {0x0416, 0x0082}, {0x0422, 0x0011}, {0x0424, 0x0901},
++    {0x0426, 0x0109}, {0x0428, 0x0108}, {0x0480, 0x6550}, {0x0502, 0x4C66}, {0x0506, 0x0020}, {0x0588, 0x0008},
++    {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000}, {0x0400, 0x5557},
++    {0x1000, 0x0000}, {0x1002, 0x3197}, {0x1004, 0x0000}, {0x1006, 0xE016}, {0x1008, 0x2D04}, {0x100A, 0x0001},
++    {0x10E0, 0x00FF}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202}, {0x10EA, 0x0202},
++    {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000}, {0x2000, 0x0001},
++    {0x2002, 0x0022}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005}, {0x288E, 0x00FA}, {0x3000, 0x0101},
++    {0x3002, 0x0000}, {0x3004, 0x49F0}, {0x3006, 0x0082}, {0x4500, 0x46C9}, {0x4502, 0x0F0F}, {0x4504, 0x0002},
++    {0x4506, 0x0100}, {0xFFFF, 0x0001}
++};
++#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 1) */
++
++#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 2)
++const STGh3x2xReg gh3x2x_reg_list2[] =
++{
++    //ecg master 500Hz  Rtype 5M
++    #if __GH3X2X_ECG_RTYPE_5M__
++    {0x0000, 0x0610}, {0x0004, 0x0013}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050}, {0x0100, 0x0100},
++    {0x010A, 0x01E2}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x0120, 0x0400}, {0x0126, 0xC73C},
++    {0x012C, 0x0C10}, {0x012E, 0x2222}, {0x0130, 0x00AA}, {0x0136, 0x00FF}, {0x013C, 0x0400}, {0x01EA, 0x0033},
++    {0x01EC, 0x0030}, {0x01EE, 0x0098}, {0x0200, 0x1020}, {0x0208, 0x0001}, {0x0402, 0x5555}, {0x0404, 0x4130},
++    {0x0406, 0x0041}, {0x0408, 0x0001}, {0x0426, 0x0101}, {0x0428, 0x0101}, {0x0480, 0x6550}, {0x0502, 0x4C66},
++    {0x0588, 0x0008}, {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000},
++    {0x0400, 0x5557}, {0x1000, 0x0000}, {0x1002, 0x3190}, {0x1004, 0x0000}, {0x1006, 0xAB08}, {0x1008, 0x2937},
++    {0x100A, 0x0001}, {0x10E0, 0x0000}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202},
++    {0x10EA, 0x0202}, {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000},
++    {0x2000, 0x0004}, {0x2002, 0x2D25}, {0x2004, 0x3D35}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005},
++    {0x288E, 0x01F4}, {0x3000, 0x0101}, {0x3002, 0x0000}, {0x3004, 0x0000}, {0x3006, 0x0000}, {0x4500, 0x46C9},
++    {0x4502, 0x0F0F}, {0x4504, 0x000A}, {0x4506, 0x0320}, {0x45C0, 0x0000}, {0x45C2, 0x0000}, {0x45C4, 0x0000},
++    {0x45C6, 0x0000}, {0xFFFF, 0x0001}, 
++    #else
++    {0x0000, 0x0610}, {0x0004, 0x0013}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050}, {0x0100, 0x0100},
++    {0x010A, 0x01E2}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x0120, 0x0400}, {0x0126, 0xC73C},
++    {0x012C, 0x0C10}, {0x012E, 0x2222}, {0x0130, 0x00AA}, {0x0136, 0x00FF}, {0x013C, 0x0400}, {0x01EA, 0x0033},
++    {0x01EC, 0x0030}, {0x01EE, 0x0098}, {0x0200, 0x1020}, {0x0208, 0x0001}, {0x0402, 0x5555}, {0x0404, 0x4120},
++    {0x0406, 0x0041}, {0x0408, 0x0001}, {0x0426, 0x0101}, {0x0428, 0x0101}, {0x0480, 0x6550}, {0x0502, 0x4C66},
++    {0x0588, 0x0008}, {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000},
++    {0x0400, 0x5557}, {0x1000, 0x0000}, {0x1002, 0x3190}, {0x1004, 0x0000}, {0x1006, 0x212D}, {0x1008, 0x293A},
++    {0x100A, 0x0001}, {0x10E0, 0x0000}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202},
++    {0x10EA, 0x0202}, {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000},
++    {0x2000, 0x0004}, {0x2002, 0x2D25}, {0x2004, 0x3D35}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005},
++    {0x288E, 0x01F4}, {0x3000, 0x0101}, {0x3002, 0x0000}, {0x3004, 0x0000}, {0x3006, 0x0000}, {0x4500, 0x46C9},
++    {0x4502, 0x0F0F}, {0x4504, 0x000A}, {0x4506, 0x0320}, {0x45C0, 0x0000}, {0x45C2, 0x0000}, {0x45C4, 0x0000},
++    {0x45C6, 0x0000}, {0xFFFF, 0x0001}, 
++
++    #endif
++
++};
++#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 2) */
++
++#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 3)
++const STGh3x2xReg gh3x2x_reg_list3[] =
++{
++    {0,0},
++};
++#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 3) */
++
++#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 4)
++const STGh3x2xReg gh3x2x_reg_list4[] =
++{
++    {0,0},
++};
++#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 4) */
++
++#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 5)
++const STGh3x2xReg gh3x2x_reg_list5[] =
++{
++    {0,0},
++};
++#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 5) */
++
++#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 6)
++const STGh3x2xReg gh3x2x_reg_list6[] =
++{
++    {0,0},
++};
++#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 6) */
++
++#if (__GH3X2X_CFG_LIST_MAX_NUM__ > 7)
++const STGh3x2xReg gh3x2x_reg_list7[] =
++{
++    {0,0},
++};
++#endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 7) */
++
++const STGh3x2xInitConfig g_stGh3x2xCfgListArr[__GH3X2X_CFG_LIST_MAX_NUM__] = 
++{
++    {gh3x2x_reg_list0,sizeof(gh3x2x_reg_list0) / sizeof(gh3x2x_reg_list0[0])},
++    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 1)
++    {gh3x2x_reg_list1,sizeof(gh3x2x_reg_list1) / sizeof(gh3x2x_reg_list1[0])},
++    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 1) */
++    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 2)
++    {gh3x2x_reg_list2,sizeof(gh3x2x_reg_list2) / sizeof(gh3x2x_reg_list2[0])},
++    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 2) */
++    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 3)
++    {gh3x2x_reg_list3,sizeof(gh3x2x_reg_list3) / sizeof(gh3x2x_reg_list3[0])},
++    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 3) */
++    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 4)
++    {gh3x2x_reg_list4,sizeof(gh3x2x_reg_list4) / sizeof(gh3x2x_reg_list4[0])},
++    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 4) */
++    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 5)
++    {gh3x2x_reg_list5,sizeof(gh3x2x_reg_list5) / sizeof(gh3x2x_reg_list5[0])},
++    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 5) */
++    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 6)
++    {gh3x2x_reg_list6,sizeof(gh3x2x_reg_list6) / sizeof(gh3x2x_reg_list6[0])},
++    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 6) */
++    #if (__GH3X2X_CFG_LIST_MAX_NUM__ > 7)
++    {gh3x2x_reg_list7,sizeof(gh3x2x_reg_list7) / sizeof(gh3x2x_reg_list7[0])},
++    #endif /* (__GH3X2X_CFG_LIST_MAX_NUM__ > 7) */
++};
++
++
++#if (__GH3X2X_CASCADE_EN__)
++const STGh3x2xReg stGh3x2xEcgCascadeSlaveRealReglist[] = 
++{
++
++/***Ecg Cascade Slaver: No lead detected****/
++#if 0
++    {0x0000, 0x06B0}, {0x0004, 0x001F}, {0x000A, 0x0064}, {0x000E, 0x000D}, {0x0100, 0x0800}, {0x010A, 0x01E2},
++    {0x010E, 0x0004}, {0x01EA, 0x0033}, {0x01EC, 0x0030}, {0x0200, 0x1020}, {0x0208, 0x0001}, {0x0480, 0x6550},
++    {0x0502, 0x4060}, {0x0588, 0x0008}, {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101},
++    {0x0700, 0x0000},
++#endif
++    
++/***Ecg Cascade Slaver: lead detected****/
++#if 1
++    //internal 32K :{0x0000, 0x0630},  {0x0074, 0x0050},
++    //external 32K :{0x0000, 0x06b0},  {0x0074, 0x00D0},
++    #if __GH3X2X_ECG_RTYPE_5M__
++    {0x0000, 0x0630}, {0x0004, 0x0013}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050}, {0x0100, 0x0100},
++    {0x010A, 0x0162}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x0120, 0x0400}, {0x0126, 0xC73C},
++    {0x012C, 0x0C10}, {0x012E, 0x2222}, {0x0130, 0x00AA}, {0x0136, 0x00FF}, {0x013C, 0x0400}, {0x01EA, 0x0033},
++    {0x01EC, 0x0030}, {0x01EE, 0x0098}, {0x0200, 0x1020}, {0x0402, 0x5555}, {0x0404, 0x4130}, {0x0406, 0x0041},
++    {0x0408, 0x0001}, {0x0426, 0x0101}, {0x0428, 0x0101}, {0x0480, 0x6550}, {0x0502, 0x4C66}, {0x0588, 0x0008},
++    {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000}, {0x0400, 0x5554},
++    {0x1000, 0x0000}, {0x1002, 0x3190}, {0x1004, 0x0000}, {0x1006, 0x72E8}, {0x1008, 0x292F}, {0x100A, 0x0001},
++    {0x10E0, 0x0000}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202}, {0x10EA, 0x0202},
++    {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000}, {0x2000, 0x0004},
++    {0x2002, 0x2D25}, {0x2004, 0x3D35}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005}, {0x288E, 0x01F4},
++    {0x3000, 0x0101}, {0x3002, 0x0000}, {0x3004, 0x0000}, {0x3006, 0x0000}, {0x4500, 0x46C9}, {0x4502, 0x0F0F},
++    {0x4504, 0x000A}, {0x4506, 0x0320}, {0x45C0, 0x0000}, {0x45C2, 0x0000}, {0x45C4, 0x0000}, {0x45C6, 0x0000},
++    {0xFFFF, 0x0001}, 
++    #else
++    {0x0000, 0x0630}, {0x0004, 0x0013}, {0x000A, 0x005F}, {0x000E, 0x000D}, {0x0074, 0x0050}, {0x0100, 0x0100},
++    {0x010A, 0x0162}, {0x010C, 0x0000}, {0x010E, 0x0000}, {0x0110, 0x0000}, {0x0120, 0x0400}, {0x0126, 0xC73C},
++    {0x012C, 0x0C10}, {0x012E, 0x2222}, {0x0130, 0x00AA}, {0x0136, 0x00FF}, {0x013C, 0x0400}, {0x01EA, 0x0033},
++    {0x01EC, 0x0030}, {0x01EE, 0x0098}, {0x0200, 0x1020}, {0x0402, 0x5555}, {0x0404, 0x4120}, {0x0406, 0x0041},
++    {0x0408, 0x0001}, {0x0426, 0x0101}, {0x0428, 0x0101}, {0x0480, 0x6550}, {0x0502, 0x4C66}, {0x0588, 0x0008},
++    {0x0692, 0x0233}, {0x0694, 0x0404}, {0x0698, 0x3310}, {0x069A, 0x1101}, {0x0700, 0x0000}, {0x0400, 0x5554},
++    {0x1000, 0x0000}, {0x1002, 0x3190}, {0x1004, 0x0000}, {0x1006, 0x2184}, {0x1008, 0x293A}, {0x100A, 0x0001},
++    {0x10E0, 0x0000}, {0x10E2, 0xFFFF}, {0x10E4, 0xFFFF}, {0x10E6, 0xFFFF}, {0x10E8, 0x0202}, {0x10EA, 0x0202},
++    {0x10EC, 0x0202}, {0x10EE, 0x0202}, {0x1120, 0x005F}, {0x1122, 0x0005}, {0x1124, 0x0000}, {0x2000, 0x0004},
++    {0x2002, 0x2D25}, {0x2004, 0x3D35}, {0x20EE, 0x0001}, {0x20F0, 0x001C}, {0x2880, 0x0005}, {0x288E, 0x01F4},
++    {0x3000, 0x0101}, {0x3002, 0x0000}, {0x3004, 0x0000}, {0x3006, 0x0000}, {0x4500, 0x46C9}, {0x4502, 0x0F0F},
++    {0x4504, 0x000A}, {0x4506, 0x0320}, {0x45C0, 0x0000}, {0x45C2, 0x0000}, {0x45C4, 0x0000}, {0x45C6, 0x0000},
++    {0xFFFF, 0x0001}, 
++    #endif
++#endif
++    
++
++};
++const GU16 g_usEcgCascadeSlaveRealRegLen = sizeof(stGh3x2xEcgCascadeSlaveRealReglist) / sizeof(STGh3x2xReg);
++
++#else
++const GU16 g_usEcgCascadeSlaveRealRegLen = 1;
++const STGh3x2xReg stGh3x2xEcgCascadeSlaveRealReglist[1];
++#endif
