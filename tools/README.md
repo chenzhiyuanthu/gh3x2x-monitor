@@ -1,6 +1,25 @@
 # tools/ — 在 Mac 上直接用蓝牙和 GH3x2x EVK 对话
 
-## 实时心率 / 血氧监测：`vitals.py`（日常用这个）
+## 全量仪表盘：`dashboard.py`（和 WHOOP 等设备逐项核对用这个）
+
+```
+tools/.venv/bin/python tools/dashboard.py                    # 连 GH-XIAO，全屏刷新；q 退出，r 重置会话统计
+tools/.venv/bin/python tools/dashboard.py --plain            # 不全屏，每秒一行（可重定向）
+tools/.venv/bin/python tools/dashboard.py --raw-csv data/raw_今天.csv   # 顺便把每一帧原始数据存下来
+tools/.venv/bin/python tools/dashboard.py --replay data/raw_今天.csv --speed 5   # 回放（不连蓝牙）
+tools/.venv/bin/python tools/dashboard.py --name GHealth --func HR,SPO2,HRV      # 原 EVK 路线：下发 ini 配置再采
+```
+
+一屏显示：连接/包率/帧号缺口、心率（汇顶算法 + 置信度 + 1 分钟趋势 + 会话 min/max + 静息心率）、血氧（% / 置信 / 等级 / R 值 / 无效标记位）、
+HRV（RMSSD，和 iPhone App 同一套筛选：置信 ≥60、去重复、±20% 中位数、5 分钟窗口 ≥30 个）、呼吸率（RIFV/RIAV/RIIV + Smart Fusion，和 App 的
+`RespiratoryRate.swift` 同一实现，能看到三路各自的值）、佩戴（硬件 ADT 事件 + 活体 NADT）、运动（帧里的 ACC，Still/Light/Active + mg）、
+绿光 4 通道原始值 + AGC + 6 s 波形、事件日志。**每秒一行摘要自动存到 `data/dashboard_<日期时间>.csv`**（第一列是墙钟时间，
+直接和 WHOOP 导出的时间轴对）；`--csv ""` 关闭。
+
+注意：GH-XIAO 同时只能连一个设备，跑仪表盘前把 iPhone 上的 App 退掉。
+
+## 实时心率 / 血氧监测：`vitals.py`（轻量版）
+
 
 ```
 cd /Users/cmac/chenzhiyuanthu/test-GH3x2x

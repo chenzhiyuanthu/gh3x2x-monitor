@@ -5,7 +5,7 @@
 **当前状态**：手上是汇顶原装 GH3x2x EVK（通用 PPG 评估套件）。第一阶段按第 4.0 节"PC 工具直接评估"的通用流程从 Mac 走 BLE 调通；因 EVK2 固件不读加速度计且不可重编译，**现在主线是 `firmware/gh3x2x_xiao/`**：V4300 驱动 + 汇顶算法跑在 XIAO nRF52840 Sense 上（模组仍插在 EVK 上供电，SPI 经 H6 接 XIAO，STM32 NRST 接地），已验证 HR/HRV/SpO2/ADT 全链路、0 丢帧。移植章节（3、4.1~4.3）对这条路线直接适用。
 
 **本仓库自己写的东西**（不属于汇顶资料）：
-- `tools/`：Mac 蓝牙直连 EVK 的 Python 工具（`vitals.py` 实时心率/血氧，`evk_ble.py` 协议/解压/采数），见 `tools/README.md`。
+- `tools/`：Mac 蓝牙直连 EVK/XIAO 的 Python 工具（`dashboard.py` 全量仪表盘 + 每秒摘要 csv，`vitals.py` 轻量心率/血氧，`evk_ble.py` 协议/解压/采数），见 `tools/README.md`。
 - `ios/`：iPhone App "GH Monitor"（SwiftUI + CoreBluetooth，WHOOP Health Monitor 风格，按 `whoop monitor.jpg` 还原），见 `ios/README.md`；`ios/install.sh` 一键装机。Swift 端的协议/解压器已用真实抓包和 Python 版逐帧比对一致。
 - `firmware/xiao_imu/`：XIAO nRF52840 Sense 的六轴 IMU 蓝牙上报固件（arduino-cli），给 App 提供运动数据（第一版方案）。
 - `firmware/gh3x2x_xiao/`：**当前主线**——V4300 驱动 + 汇顶算法跑在 XIAO 上，板载 ACC 喂算法，走汇顶协议 BLE 上报（广播 `GH-XIAO`）；模组仍插在 EVK 上供电，SPI 经 H6 排针接 XIAO，STM32 NRST 接地。见 `firmware/gh3x2x_xiao/README.md`。Mac 上 `tools/vitals.py --name GH-XIAO --listen` 可直接看结果。
