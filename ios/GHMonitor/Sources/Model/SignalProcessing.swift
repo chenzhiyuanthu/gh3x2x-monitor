@@ -158,6 +158,18 @@ enum SignalProcessing {
         return v.squareRoot() * 1000
     }
 
+    /// RMSSD (ms) using only pairs of RR intervals that were adjacent beats (seq differs by 1), so gaps left by
+    /// rejected intervals do not create fake successive differences.
+    static func rmssdAdjacent(_ rri: [(seq: Int, ms: Double)]) -> Double? {
+        var acc = 0.0, n = 0
+        for i in 1..<max(rri.count, 1) where rri[i].seq == rri[i - 1].seq + 1 {
+            let d = rri[i].ms - rri[i - 1].ms
+            acc += d * d; n += 1
+        }
+        guard n >= 10 else { return nil }
+        return (acc / Double(n)).squareRoot()
+    }
+
     /// RMSSD (ms) of successive RR intervals.
     static func rmssd(_ rri: [Double]) -> Double? {
         guard rri.count >= 4 else { return nil }

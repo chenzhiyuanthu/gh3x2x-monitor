@@ -80,8 +80,13 @@ final class VitalsStore: ObservableObject {
     @Published var spo2Level: Int = 0
     @Published var spo2RValue: Double?
     @Published var spo2Updated: Date?
-    @Published var hrv: Double?                 // RMSSD ms (from sensor RR intervals)
-    @Published var hrvSensorConfidence: Int = 0
+    @Published var hrv: Double?                 // RMSSD ms over the accepted RR intervals of the last 5 min
+    @Published var hrvSensorConfidence: Int = 0 // Goodix rri_confidence: 0 unusable, 25 low, 75 high, 100 trusted
+    @Published var hrvAcceptedBeats = 0         // RR intervals accepted in the window
+    @Published var hrvSeenBeats = 0             // RR intervals the sensor produced this session
+    @Published var hrvRejectedBeats = 0         // low confidence / out of range / artifact
+    static let hrvMinConfidence = 60            // the algorithm emits 20/30/60/80 in practice; 60+ ≈ Goodix "high"
+    static let hrvMinBeats = 30
     @Published var respiratoryRate: Double?     // rpm (estimated from PPG)
     @Published var respiratoryQuality: Double = 0
     @Published var restingHeartRate: Int?
@@ -116,7 +121,9 @@ final class VitalsStore: ObservableObject {
     var maxHeartRate: Double = 190
 
     private var ppgBuffer: [Double] = []         // green ch0, 25 Hz, ~70 s
-    private var rri: [Double] = []               // ms, last ~2 min
+    private var rri: [(time: Date, seq: Int, ms: Double)] = []   // accepted RR intervals, 5-min window
+    private var rriSeq = 0                       // running beat counter, so RMSSD only pairs adjacent beats
+    private var lastRRIOutput: [Int32] = []      // the sensor repeats its last output on seconds without a validated beat
     private var lastFrameId: [Int: UInt8] = [:]
     private var lastHRHistoryAt: Date = .distantPast
     private var lastAnalysisAt: Date = .distantPast
@@ -263,6 +270,7 @@ final class VitalsStore: ObservableObject {
         ppgPulseEstimate = nil; ppgQuality = 0; signalOK = false
         hrHistory.removeAll(); ppgWave.removeAll(); frames = 0; droppedFrames = 0
         ppgBuffer.removeAll(); rri.removeAll(); lastFrameId.removeAll(); rhrWindow.removeAll()
+        rriSeq = 0; lastRRIOutput = []; hrvSensorConfidence = 0; hrvAcceptedBeats = 0; hrvSeenBeats = 0; hrvRejectedBeats = 0
         hardwareWear = nil; softWear = nil
         accBuffer.removeAll(); lastMovementAt = nil; motionAffected = false
         frameAccActive = false; frameAccRate = 0; lastFrameAcc = nil; accSourceFunction = nil; frameAccTimes.removeAll()
@@ -309,16 +317,39 @@ final class VitalsStore: ObservableObject {
                 spo2Updated = Date()
             }
         case "HRV":
-            // snResult[0..3] = RR intervals (ms) produced in the last second, [4] confidence, [5] count
+            // snResult[0..3] = RR intervals (ms) found in the last second, [4] confidence, [5] count.
+            // Raw output from a 25 Hz PPG is noisy (±100–200 ms jitter at low confidence) and taking every
+            // interval gives an RMSSD of 200+ ms, so: use only high-confidence outputs, drop the repeats the
+            // algorithm emits while it has no new validated beat, apply the usual ±20 % artifact gate, and only
+            // report once enough beats have been collected.
             let count = Int(f.algo[5] ?? 0)
-            if count > 0, motionState != .active {
-                hrvSensorConfidence = Int(f.algo[4] ?? 0)
-                for i in 0..<min(count, 4) {
-                    if let v = f.algo[i], v > 250, v < 2500 { rri.append(Double(v)) }
+            guard count > 0 else { break }
+            let conf = Int(f.algo[4] ?? 0)
+            hrvSensorConfidence = conf
+            let vals = (0..<min(count, 4)).compactMap { f.algo[$0] }.filter { $0 > 0 }
+            guard !vals.isEmpty, vals != lastRRIOutput else { break }
+            lastRRIOutput = vals
+            hrvSeenBeats += vals.count
+            let now = Date()
+            if conf < Self.hrvMinConfidence || motionState == .active {
+                hrvRejectedBeats += vals.count
+                rriSeq += vals.count
+            } else {
+                for v in vals {
+                    rriSeq += 1
+                    let ms = Double(v)
+                    guard ms >= 300, ms <= 2000 else { hrvRejectedBeats += 1; continue }
+                    let recent = rri.suffix(20).map(\.ms).sorted()
+                    if recent.count >= 5, abs(ms - recent[recent.count / 2]) / recent[recent.count / 2] > 0.2 {
+                        hrvRejectedBeats += 1; continue
+                    }
+                    rri.append((now, rriSeq, ms))
                 }
-                if rri.count > 150 { rri.removeFirst(rri.count - 150) }
-                if let r = SignalProcessing.rmssd(Array(rri.suffix(60))) { hrv = r }
             }
+            rri.removeAll { now.timeIntervalSince($0.time) > 300 }
+            hrvAcceptedBeats = rri.count
+            if rri.count >= Self.hrvMinBeats,
+               let r = SignalProcessing.rmssdAdjacent(rri.map { ($0.seq, $0.ms) }) { hrv = r }
         case "SOFT_ADT_GREEN", "SOFT_ADT_IR":
             if let s = f.algo[0] {
                 switch s & 3 {
