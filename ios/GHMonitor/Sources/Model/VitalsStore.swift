@@ -87,8 +87,10 @@ final class VitalsStore: ObservableObject {
     @Published var hrvRejectedBeats = 0         // low confidence / out of range / artifact
     static let hrvMinConfidence = 60            // the algorithm emits 20/30/60/80 in practice; 60+ ≈ Goodix "high"
     static let hrvMinBeats = 30
-    @Published var respiratoryRate: Double?     // rpm (estimated from PPG)
+    @Published var respiratoryRate: Double?     // breaths/min: median of the last few RIFV/RIAV/RIIV fusion estimates
     @Published var respiratoryQuality: Double = 0
+    @Published var respiratoryDetail = ""       // last per-modality estimates, for the device sheet
+    @Published var respiratoryWindows = 0       // fused windows currently in the history
     @Published var restingHeartRate: Int?
     @Published var skinTempDelta: Double?       // no NTC on the EVK PD/LED module
     @Published var wear: WearState = .unknown
@@ -121,6 +123,9 @@ final class VitalsStore: ObservableObject {
     var maxHeartRate: Double = 190
 
     private var ppgBuffer: [Double] = []         // green ch0, 25 Hz, ~70 s
+    private var ppgMeanBuffer: [Double] = []     // mean of the green channels, 25 Hz, ~60 s (respiratory rate)
+    private var lastRespAt: Date = .distantPast
+    private var respHistory: [(Date, Double)] = []
     private var rri: [(time: Date, seq: Int, ms: Double)] = []   // accepted RR intervals, 5-min window
     private var rriSeq = 0                       // running beat counter, so RMSSD only pairs adjacent beats
     private var lastRRIOutput: [Int32] = []      // the sensor repeats its last output on seconds without a validated beat
@@ -265,7 +270,8 @@ final class VitalsStore: ObservableObject {
         heartRate = nil; sensorHeartRate = nil; heartRateSource = .none; heartRateConfidence = 0; heartRateUpdated = nil
         smoothedHR = nil
         spo2 = nil; spo2Confidence = 0; spo2Level = 0; spo2RValue = nil; spo2Updated = nil
-        hrv = nil; respiratoryRate = nil; respiratoryQuality = 0; restingHeartRate = nil
+        hrv = nil; respiratoryRate = nil; respiratoryQuality = 0; respiratoryDetail = ""; respiratoryWindows = 0; restingHeartRate = nil
+        ppgMeanBuffer.removeAll(); respHistory.removeAll(); lastRespAt = .distantPast
         wear = .unknown; livingConfidence = nil
         ppgPulseEstimate = nil; ppgQuality = 0; signalOK = false
         hrHistory.removeAll(); ppgWave.removeAll(); frames = 0; droppedFrames = 0
@@ -300,6 +306,10 @@ final class VitalsStore: ObservableObject {
                 if let g = raw.first {
                     ppgBuffer.append(Double(g))
                     if ppgBuffer.count > 25 * 70 { ppgBuffer.removeFirst(ppgBuffer.count - 25 * 70) }
+                }
+                if !raw.isEmpty {
+                    ppgMeanBuffer.append(raw.reduce(0.0) { $0 + Double($1) } / Double(raw.count))
+                    if ppgMeanBuffer.count > 25 * 60 { ppgMeanBuffer.removeFirst(ppgMeanBuffer.count - 25 * 60) }
                 }
             }
             if let bpm = f.algo[0], bpm > 0 {
@@ -407,13 +417,34 @@ final class VitalsStore: ObservableObject {
             ppgPulseEstimate = est.peakToPeak > 4000 && est.peakToPeak < 2_000_000 ? est.bpm : nil
             ppgQuality = ppgPulseEstimate == nil ? 0 : est.quality
         }
-        if let rr = SignalProcessing.respiratoryRate(ppg: ppgBuffer), rr.quality > 0.15, signalOK {
-            respiratoryRate = respiratoryRate.map { 0.8 * $0 + 0.2 * rr.rpm } ?? rr.rpm
-            respiratoryQuality = rr.quality
-        }
+        updateRespiratoryRate(now)
         let ac = SignalProcessing.detrend(Array(ppgBuffer.suffix(25 * 6)), window: 12)
         ppgWave = Array(ac.suffix(25 * 6))
         if sensorHeartRate != nil || ppgQuality >= 0.6 { reconcileHeartRate() }
+    }
+
+    /// Every 5 s: one 32-s fusion estimate; the displayed value is the median of the estimates from the last 60 s and
+    /// needs at least two of them. Skipped while the arm is moving; cleared when nothing usable has come in for 60 s.
+    private func updateRespiratoryRate(_ now: Date) {
+        guard now.timeIntervalSince(lastRespAt) >= 5 else { return }
+        lastRespAt = now
+        respHistory.removeAll { now.timeIntervalSince($0.0) > 60 }
+        if motionState != .active, lastRaw.max() ?? 0 > (1 << 23) + 300_000,
+           let e = RespiratoryRate.estimate(ppg: ppgMeanBuffer, fs: 25, window: 32) {
+            respHistory.append((now, e.rpm))
+            func f(_ v: Double?) -> String { v.map { String(format: "%.1f", $0) } ?? "--" }
+            respiratoryDetail = "RIFV \(f(e.rifv)) · RIAV \(f(e.riav)) · RIIV \(f(e.riiv)) · spread \(String(format: "%.1f", e.spread)) · \(e.beats) beats"
+            respiratoryQuality = max(0, 1 - e.spread / 4)
+        } else if respiratoryDetail.isEmpty || now.timeIntervalSince(respHistory.last?.0 ?? .distantPast) > 20 {
+            respiratoryDetail = motionState == .active ? "paused: moving" : "modalities disagree / irregular beats"
+        }
+        respiratoryWindows = respHistory.count
+        if respHistory.count >= 2 {
+            let v = respHistory.map(\.1).sorted()
+            respiratoryRate = v.count % 2 == 1 ? v[v.count / 2] : (v[v.count / 2 - 1] + v[v.count / 2]) / 2
+        } else {
+            respiratoryRate = nil
+        }
     }
 
     private func updateWear() {

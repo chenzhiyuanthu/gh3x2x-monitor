@@ -42,7 +42,7 @@ private struct ReportPage: View {
             Divider()
             metric("Heart rate", store.heartRate.map { "\($0) bpm" } ?? "--", store.heartRateSource == .waveform ? "from PPG waveform (sensor algorithm reported \(store.sensorHeartRate ?? 0))" : "confidence \(store.heartRateConfidence)/100 · zone \(store.zone)")
             metric("Blood oxygen (SpO₂)", store.spo2.map { "\($0) %" } ?? "--", store.spo2RValue.map { String(format: "R %.3f · level %d", $0, store.spo2Level) } ?? "")
-            metric("Respiratory rate", store.respiratoryRate.map { String(format: "%.1f rpm", $0) } ?? "--", "estimated from PPG baseline")
+            metric("Respiratory rate", store.respiratoryRate.map { String(format: "%.1f rpm", $0) } ?? "--", "PPG: RIFV/RIAV/RIIV fusion, resting only")
             metric("Resting heart rate", store.restingHeartRate.map { "\($0) bpm" } ?? "--", "lowest 60-second average this session")
             metric("HRV (RMSSD)", store.hrv.map { String(format: "%.0f ms", $0) } ?? "--", "from sensor RR intervals")
             metric("Skin temperature", store.skinTempDelta.map { String(format: "%+.1f °C", $0) } ?? "n/a", "no temperature sensor on this module")

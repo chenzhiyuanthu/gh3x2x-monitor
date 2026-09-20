@@ -128,28 +128,6 @@ enum SignalProcessing {
         }
         return re * re + im * im
     }
-
-    /// Respiratory rate from ~60 s of raw PPG: the baseline wander (0.1–0.5 Hz) modulated by breathing.
-    static func respiratoryRate(ppg: [Double], fs: Double = 25) -> (rpm: Double, quality: Double)? {
-        let x = Array(ppg.suffix(Int(fs * 60)))
-        guard x.count >= Int(fs * 40) else { return nil }
-        // Baseline: moving average over ~1 s removes the pulse, leaving the respiratory modulation.
-        let n = x.count
-        var base = [Double](repeating: 0, count: n)
-        var prefix = [Double](repeating: 0, count: n + 1)
-        for i in 0..<n { prefix[i + 1] = prefix[i] + x[i] }
-        for i in 0..<n {
-            let lo = max(0, i - 12), hi = min(n - 1, i + 12)
-            base[i] = (prefix[hi + 1] - prefix[lo]) / Double(hi - lo + 1)
-        }
-        // Remove slow drift (> 10 s) so AGC steps don't dominate.
-        let slow = detrend(base, window: 125)
-        // Decimate to 5 Hz for speed.
-        let dec = stride(from: 0, to: slow.count, by: 5).map { slow[$0] }
-        guard let (f, share) = dominantFrequency(dec, fs: fs / 5, fLow: 0.1, fHigh: 0.5, step: 0.005) else { return nil }
-        return (f * 60, min(1, share * 6))
-    }
-
     /// Motion level from accelerometer magnitude (g) over the window: std in mg.
     static func motionLevel(magnitude: [Double]) -> Double {
         guard magnitude.count >= 10 else { return 0 }

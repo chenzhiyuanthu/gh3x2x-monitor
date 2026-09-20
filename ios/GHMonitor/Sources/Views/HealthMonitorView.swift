@@ -200,7 +200,7 @@ struct HealthMonitorView: View {
         return LazyVGrid(columns: columns, spacing: 12) {
             MetricCard(icon: "lungs", title: "Respiratory rate",
                        value: store.respiratoryRate.map { String(format: "%.1f", $0) } ?? "--", unit: "rpm") {
-                RangePill.make(value: store.respiratoryRate, range: store.respiratoryRange, pendingText: "needs 60 s")
+                RangePill.make(value: store.respiratoryRate, range: store.respiratoryRange, pendingText: "collecting…")
             }
             MetricCard(icon: "drop", title: "Blood oxygen (SpO₂)",
                        value: store.spo2.map(String.init) ?? "--", unit: "%") {

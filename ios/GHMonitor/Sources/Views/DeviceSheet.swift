@@ -28,6 +28,9 @@ struct DeviceSheet: View {
                     if let e = store.ppgPulseEstimate { row("PPG waveform HR", "\(e) bpm  (q \(String(format: "%.2f", store.ppgQuality)))") }
                     row("Displayed HR source", store.heartRateSource == .waveform ? "PPG waveform (sensor off by ~2x)" : "sensor algorithm")
                     if let r = store.spo2RValue { row("SpO₂ R value / level", String(format: "%.3f / %d", r, store.spo2Level)) }
+                    if !store.respiratoryDetail.isEmpty {
+                        row("Respiratory rate", "\(store.respiratoryWindows) windows · \(store.respiratoryDetail)")
+                    }
                     if store.hrvSeenBeats > 0 {
                         row("HRV RR intervals", "conf \(store.hrvSensorConfidence) · \(store.hrvAcceptedBeats) in window / \(store.hrvSeenBeats) seen / \(store.hrvRejectedBeats) rejected · need \(VitalsStore.hrvMinBeats)")
                     }
