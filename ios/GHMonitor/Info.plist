@@ -22,10 +22,16 @@
 	<string>1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>GH Monitor connects to the Goodix GH3x2x sensor over Bluetooth to read heart rate and blood oxygen.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>GH Monitor connects to the Goodix GH3x2x sensor over Bluetooth.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>The GH Watch app reads heart rate during workouts to record it alongside the sensor data.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>The GH Watch app saves the recording session as a workout.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -35,6 +41,8 @@
 	<array>
 		<string>bluetooth-central</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>

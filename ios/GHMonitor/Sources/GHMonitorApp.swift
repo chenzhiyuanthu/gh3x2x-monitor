@@ -5,6 +5,7 @@ struct GHMonitorApp: App {
     @StateObject private var store: VitalsStore
     @StateObject private var evk: EVKManager
     @StateObject private var imu: IMUManager
+    @StateObject private var watch = WatchLink()
 
     init() {
         let store = VitalsStore()
@@ -29,6 +30,7 @@ struct GHMonitorApp: App {
                 .environmentObject(store)
                 .environmentObject(evk)
                 .environmentObject(imu)
+                .environmentObject(watch)
         }
     }
 }

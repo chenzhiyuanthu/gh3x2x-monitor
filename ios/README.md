@@ -47,3 +47,11 @@ ios/
 - 改界面：`Sources/Views/*`；改指标算法：`Sources/Model/*`；换传感器配置：替换 `Resources/evk_config.ini`（GHTestTool 保存的 ini 直接可用），并在 `EVKManager.functionsToStart` 调整要启动的功能。
 - 改完 `project.yml` 要重新 `xcodegen generate`。
 - 协议/解压器改动后可用 `tools/evk_ble.py` 抓的 `data/raw_dump1.txt` 做离线对比（见对话记录里的 swifttest 方法）。
+
+## Apple Watch 伴侣 App "GH Watch"（`GHMonitor/Watch/`）
+
+目的：运动时在手表上看、并记录**高采样率六轴 + 心率**，和板子的数据/WHOOP 对照。Apple Watch 能给的上限：
+- 六轴：Series 8 / Ultra 及之后（watchOS 10+）用 `CMBatchedSensorManager`，设备运动（融合六轴）200 Hz，可选原始加速度 800 Hz——**只在 workout 会话里可用**；Series 6/7/SE 只有 `CMMotionManager`，设备运动 100 Hz。
+- 心率：没有公开 API 拿原始 PPG 或逐拍 RR；workout 期间 HealthKit 大约每 5 s 写一个心率样本，App 用 `HKAnchoredObjectQuery` 把每个样本都记下来。
+- 流程：表上开 GH Watch → 首次允许健康数据（心率读、锻炼写）和运动数据 → Start（开始一个 HKWorkoutSession，绿色心率光才会持续采）→ 表面显示心率/|a|/|ω|/采样率/样本数 → Stop & send：`watch_hr_<时间>.csv`、`watch_motion_<时间>.csv`（unix 时间、用户加速度、重力、陀螺 °/s、姿态角）经 WatchConnectivity 传到 iPhone 的 `Documents/WatchRecordings/`，在 GH Monitor 设备页 "Apple Watch recordings" 里能看到并分享，也能在"文件"App 里直接拿。
+- 安装：GH Watch 打包在 GH Monitor 的 ipa 里，装好 iPhone App 后，在 iPhone 的 Watch App → 我的手表 → 往下拉到"可用的 App"里点 GH Watch 安装（或打开"自动安装 App"）。

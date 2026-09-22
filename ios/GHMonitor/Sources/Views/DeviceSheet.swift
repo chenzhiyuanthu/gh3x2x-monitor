@@ -5,6 +5,7 @@ struct DeviceSheet: View {
     @EnvironmentObject var evk: EVKManager
     @EnvironmentObject var store: VitalsStore
     @EnvironmentObject var imu: IMUManager
+    @EnvironmentObject var watch: WatchLink
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -72,6 +73,24 @@ struct DeviceSheet: View {
                         Button("Connect XIAO-IMU") { imu.reconnect() }
                     }
                 }
+                Section("Apple Watch recordings") {
+                    row("Link", watch.status)
+                    if watch.files.isEmpty {
+                        Text("Start a session in the GH Watch app; files arrive here when it stops (also in Files › GH Monitor › WatchRecordings).")
+                            .font(.footnote).foregroundStyle(.secondary)
+                    }
+                    ForEach(watch.files, id: \.self) { url in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(url.lastPathComponent).font(.footnote.monospaced())
+                                Text(fileSize(url)).font(.caption2).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            ShareLink(item: url) { Image(systemName: "square.and.arrow.up") }
+                        }
+                        .swipeActions { Button("Delete", role: .destructive) { watch.delete(url) } }
+                    }
+                }
                 Section("Nearby sensors") {
                     if evk.discovered.isEmpty {
                         Text("Searching for GHealth_Device…").foregroundStyle(.secondary)
@@ -99,6 +118,11 @@ struct DeviceSheet: View {
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
         }
         .preferredColorScheme(.dark)
+    }
+
+    private func fileSize(_ url: URL) -> String {
+        let n = (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? Int) ?? 0
+        return n > 1_000_000 ? String(format: "%.1f MB", Double(n) / 1e6) : "\(n / 1000) kB"
     }
 
     private func row(_ k: String, _ v: String) -> some View {
